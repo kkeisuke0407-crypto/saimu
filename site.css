@@ -1,0 +1,34 @@
+/* 借金スッキリnavi：ページ枠だけ。部品の見た目は parts.css（薬剤師比較ランキング型パーツ・無改変）。 */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #fff; }
+img { max-width: 100%; height: auto; }
+.site-wrap { max-width: 640px; margin: 0 auto; padding: 0 12px; overflow-x: clip; }
+.site-wrap [id] { scroll-margin-top: 8px; }
+
+/* FV：人物画像を右の枠に収める */
+.site-hero-sub { margin: 0 0 .6em !important; }
+.site-hero-img { margin: 0; }
+.site-hero-img img { width: 100%; height: 100%; max-height: 230px; object-fit: cover; object-position: top; border-radius: 6px; }
+.site-hero-img .mt-img__note { margin: .1em 0 0; font-size: 9.5px; }
+
+/* ASP提供バナー（300×250）を中央に */
+.site-banner { margin: 0 0 .4em !important; text-align: center; }
+.site-banner img { display: inline-block; width: 100%; max-width: 300px; }
+.site-banner--pick { margin: 8px !important; }
+.site-pickup-lead { margin: 0 4px 1em !important; font-size: 14px; }
+
+/* 2軸の早見表：ロゴの代わりに文字表記 */
+.site-mxname { display: block; text-align: center; font-size: 12px; }
+.site-mxtext { display: grid; place-items: center; height: auto !important; padding: 4px !important; font-size: 11px; font-weight: 700; line-height: 1.35; text-align: center; }
+
+/* 改行：見出しは語句の途中で1文字だけ残さない */
+.yk-sec-ttl, .yk-best3__ttl, .yk-pickup__ttl, .yk-rankhead, .yk-numh, .yk-hero__ttl { text-wrap: balance; }
+.yk-body p, .yk-body li { text-wrap: pretty; }
+
+.site-legal { margin: 1.6em 0 0; }
+.site-legal p { margin: 0 0 .5em; }
+
+/* 比較表下などの補助ボタン（灰色）は横いっぱいでなく中央 */
+.yk-body > .yk-btn--sub { width: 80%; margin: 0 auto 1em; }
+.yk-body > .yk-btn { margin-bottom: 1.2em; }

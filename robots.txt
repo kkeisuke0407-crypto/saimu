@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://saimu.navolio.net/sitemap.xml
