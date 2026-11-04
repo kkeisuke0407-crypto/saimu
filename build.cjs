@@ -91,7 +91,7 @@ const LEGAL = [
   `※相談料・費用・受付時間・対応エリアなどは各事務所の公式サイトの記載（${CHECKED}確認）です。変更される場合があるため、必ず各事務所にご確認ください。`,
   "※債務整理を行うと信用情報に一定期間登録されるなどの影響があります。手続きの効果やリスクは個別の状況により異なります。",
 ];
-const footer = `<div class="site-legal">${LEGAL.map((l) => `<p class="yk-small">${l}</p>`).join("")}<p class="yk-small">イラスト：いらすとや／ロゴ・公式画面：各事務所公式サイト（${CHECKED}撮影）</p></div>
+const footer = `<div class="site-legal" id="public">${LEGAL.map((l) => `<p class="yk-small">${l}</p>`).join("")}<p class="yk-small">イラスト：いらすとや／ロゴ・公式画面：各事務所公式サイト（${CHECKED}撮影）</p></div>
 <footer class="yk-footer"><ul><li><a href="/operator/">運営者情報</a></li><li><a href="/ranking/">ランキング調査概要</a></li><li><a href="/privacy/">プライバシーポリシー</a></li></ul><small>© 2026 ${SITE}</small></footer>`;
 
 /* ================= トップページ（ページの流れ） ================= */
@@ -121,7 +121,7 @@ ${firms.slice(0, 3).map((f) => `  <li class="yk-best3__item"><span class="yk-bes
 
 // B-2 求人の例カード → 公式サイトに掲載された解決事例
 const caseCards = firms.flatMap((f) => f.cases.map((c) => ({ f, c }))).slice(0, 5);
-const top2 = `<h2 class="yk-sec-ttl">公式サイトに掲載された<em>解決事例</em></h2>
+const top2 = `<h2 class="yk-sec-ttl" id="types">公式サイトに掲載された<em>解決事例</em></h2>
 <p class="yk-hint">横にスクロールできます</p>
 <div class="yk-hscroll">
 ${caseCards.map(({ f, c }) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__ttl">${c.ttl}</h3>${ill(c.img, ILL[c.img][2], ILL[c.img][0], ILL[c.img][1], "yk-jobcard__img site-jobimg")}<p class="yk-jobcard__pay"><b>${c.after.split("・")[0].split("＋")[0]}</b></p><table class="yk-kv"><tr><th>手続き</th><td>${c.proc}</td></tr><tr><th>相談前</th><td>${c.before}</td></tr><tr><th>結果</th><td><span class="yk-red">${c.after}</span></td></tr><tr><th>事務所</th><td>${f.short}</td></tr></table><ul class="yk-tags"><li>${f.type.split("（")[0]}</li><li>公式掲載</li></ul><p class="yk-small site-src">出典：<a href="${c.src}" rel="nofollow noopener" target="_blank">${f.short}公式サイト</a>（${CHECKED}確認）。結果は事案により異なります</p><p class="yk-catch">${CATCH}</p>${cta(f, ctaLabel(f), "yk-btn yk-btn--sm", "case")}</div>`).join("\n")}
@@ -152,7 +152,7 @@ const compare = `<h2 class="yk-sec-ttl" id="compare"><em>6社</em>をまとめ�
 
 // C-2 2軸の早見表（任意整理の費用 × 対応できる手続き）
 const pos = { lotus: [74, 18], earth: [27, 20], hibari: [70, 70], hibiki: [74, 86], avance: [26, 54], hatano: [28, 80] };
-const matrix = `<h2 class="yk-sec-ttl">ひと目で分かる<em>早見表</em></h2>
+const matrix = `<h2 class="yk-sec-ttl" id="lawyer-vs">ひと目で分かる<em>早見表</em></h2>
 <div class="yk-matrix">
   <span class="yk-matrix__ax yk-matrix__ax--t">任意整理 安い</span><span class="yk-matrix__ax yk-matrix__ax--b">高い・非公開</span><span class="yk-matrix__ax yk-matrix__ax--l">司法書士</span><span class="yk-matrix__ax yk-matrix__ax--r">弁護士</span>
 ${firms.map((f) => f.rank === 1
@@ -162,7 +162,7 @@ ${firms.map((f) => f.rank === 1
 <p class="yk-small">※縦は任意整理1社あたりの公表費用（東京ロータス5,500円〜、アース11,000円〜、ほか22,000円〜。響は非公開）、横は弁護士か司法書士か（${CHECKED}、各公式サイト）。</p>`;
 
 // C-3 2社併用のすすめ
-const combo = `<section class="yk-combo"><h2 class="yk-combo__ttl"><em>${F.hibari.short.replace("法律事務所", "")}</em> × <em>${F.lotus.short.replace("法律事務所", "")}</em><br>2社に無料相談して比べましょう！</h2>
+const combo = `<section class="yk-combo" id="choose"><h2 class="yk-combo__ttl"><em>${F.hibari.short.replace("法律事務所", "")}</em> × <em>${F.lotus.short.replace("法律事務所", "")}</em><br>2社に無料相談して比べましょう！</h2>
 ${[["hibari", "どの手続きが合うか、まず弁護士に整理してもらう", [["家族に内緒で進められるかを相談できる", "任意整理なら依頼する債権者を選べる、とFAQに記載。郵便物に事務所名を入れない対応も可能。"], ["4つの手続きすべてに対応", "任意整理・個人再生・自己破産・過払い請求を取扱業務に掲載。"]]], ["lotus", "任意整理の費用を抑えたい・土日に話したい", [["任意整理の着手金が1件5,500円〜", "公式の料金表に記載（税込）。"], ["土日祝も10時〜19時に電話で受付", "相談は何度でも無料。"]]]].map(([k, head, pts]) => `  <div class="yk-combo__card"><p class="yk-combo__head">${head}</p><span class="yk-combo__logo">${logo(F[k])}</span><a class="yk-combo__link" href="#firm-${k}">${F[k].name}</a>
     <ul class="yk-combo__points">${pts.map(([b, t]) => `<li><b>${b}</b><br>${t}</li>`).join("")}</ul>
     <p class="yk-catch">${CATCH}</p>${cta(F[k], `${F[k].short}の無料相談へ`, "yk-btn", "combo")}</div>`).join("\n")}
@@ -195,20 +195,20 @@ ${voice(f)}
 <div class="yk-btnpair">${f.page ? `<a class="yk-btn yk-btn--sub" href="/${f.key}/">詳細は<br>こちら</a>` : `<a class="yk-btn yk-btn--sub" href="#compare">比較表<br>に戻る</a>`}<div><p class="yk-catch">${CATCH}</p>${cta(f, f.asp ? `${f.short}の<br>無料相談の窓口へ` : `${f.short}の<br>公式サイトへ`, "yk-btn", "pair")}</div></div>
 </div>`;
 const ranking = `<h2 class="yk-sec-ttl" id="ranking">債務整理の相談先<em>ランキング</em></h2>
-<p class="yk-small" style="text-align:center">1〜3位は提携先です。順位と採点の決め方は<a href="/ranking/">ランキング調査概要</a></p>
+<p class="yk-small" id="firms" style="text-align:center">1〜3位は提携先です。順位と採点の決め方は<a href="/ranking/">ランキング調査概要</a></p>
 ${firms.slice(0, 3).map(rankBlock).join("\n")}
 <div class="yk-fold site-rankfold"><input type="checkbox" id="rank-more"><div class="yk-fold__body">
 ${firms.slice(3).map(rankBlock).join("\n")}
 </div><label class="yk-fold__btn" for="rank-more">4位〜6位を見る</label></div>`;
 
 // E-1 迷ったらまずは
-const pickup = `<section class="yk-pickup"><h2 class="yk-pickup__ttl"><small>迷ったらまずは</small><br><em>ここ</em>に相談すれば安心！</h2>
+const pickup = `<section class="yk-pickup" id="faq"><h2 class="yk-pickup__ttl"><small>迷ったらまずは</small><br><em>ここ</em>に相談すれば安心！</h2>
 <ul class="yk-pickup__list">
 ${["hibari", "lotus"].map((k) => `  <li class="yk-pickup__item"><p class="yk-pickup__name">${F[k].short}</p><p class="site-banner site-banner--pick">${banner(F[k])}</p><p class="yk-pickup__text">${F[k].best3.join("。")}。</p><p class="yk-catch">${CATCH}</p>${cta(F[k], "無料相談", "yk-btn yk-btn--sm", "pickup")}</li>`).join("\n")}
 </ul></section>`;
 
 // E-2 診断（ブラウザー内で判定）
-const finder = `<form class="yk-finder" id="finder" action="#ranking"><p class="yk-finder__ttl">債務整理<br><em>相談先</em>診断</p>
+const finder = `<form class="yk-finder" id="situations" action="#ranking"><p class="yk-finder__ttl">債務整理<br><em>相談先</em>診断</p>
   <label class="yk-finder__row">今の状況<select name="s"><option value="nini">毎月の返済を減らしたい</option><option value="saisei">家を残して借金を減らしたい</option><option value="hasan">返済を続けるのが難しい</option><option value="kabarai">払いすぎた利息が気になる</option></select></label>
   <label class="yk-finder__row">借入の額<select name="a"><option value="small">どの会社も140万円以下</option><option value="big">140万円を超える会社がある</option><option value="unknown">分からない</option></select></label>
   <fieldset><legend>重視すること</legend><div class="yk-finder__checks"><label><input type="checkbox" name="cost">費用を抑えたい</label><label><input type="checkbox" name="weekend">土日・夜に相談したい</label><label><input type="checkbox" name="family">家族に知られたくない</label></div></fieldset>
@@ -220,7 +220,7 @@ const FINDER_DATA = firms.map((f) => ({ key: f.key, name: f.short, lawyer: f.typ
 const FINDER_JS = `<script>
 (function () {
   var D = ${JSON.stringify(FINDER_DATA)};
-  var form = document.getElementById('finder'), out = document.getElementById('finder-result');
+  var form = document.getElementById('situations'), out = document.getElementById('finder-result');
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var s = form.s.value, a = form.a.value, needLawyer = s === 'saisei' || s === 'hasan' || a !== 'small';
