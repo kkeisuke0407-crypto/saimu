@@ -60,3 +60,8 @@ img { max-width: 100%; height: auto; }
 .site-back .yk-btn--sub { width: 80%; margin: 0 auto; }
 .site-legal { margin: 1.6em 0 0; }
 .site-legal p { margin: 0 0 .5em; }
+
+/* 比較表の窓口ボタン（2行で収める） */
+.yk-cmp .site-cmpbtn { padding: .45em 1.1em .45em .3em; font-size: 11.5px; line-height: 1.25; white-space: normal; }
+.yk-cmp .site-cmpbtn::before { right: .45em; }
+.yk-best3__note { word-break: keep-all; }
