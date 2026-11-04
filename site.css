@@ -1,34 +1,58 @@
-/* 借金スッキリnavi：ページ枠だけ。部品の見た目は parts.css（薬剤師比較ランキング型パーツ・無改変）。 */
+/* 借金スッキリnavi：ページ枠と、パーツの画像枠に実画像を入れるための調整だけ。部品の見た目は parts.css（無改変）。 */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body { margin: 0; background: #fff; }
 img { max-width: 100%; height: auto; }
 .site-wrap { max-width: 640px; margin: 0 auto; padding: 0 12px; overflow-x: clip; }
 .site-wrap [id] { scroll-margin-top: 8px; }
 
-/* FV：人物画像を右の枠に収める */
-.site-hero-sub { margin: 0 0 .6em !important; }
-.site-hero-img { margin: 0; }
-.site-hero-img img { width: 100%; height: 100%; max-height: 230px; object-fit: cover; object-position: top; border-radius: 6px; }
-.site-hero-img .mt-img__note { margin: .1em 0 0; font-size: 9.5px; }
+/* 改行：見出しは語句の途中で1文字だけ残さない */
+.yk-sec-ttl, .yk-best3__ttl, .yk-pickup__ttl, .yk-combo__ttl, .yk-rankhead, .yk-numh, .yk-hero__ttl, .yk-rankcatch, .yk-svchead__catch { text-wrap: balance; }
+.yk-body p, .yk-body li { text-wrap: pretty; }
+.yk-rankhead, .yk-pickup__name, .yk-finder .yk-numh { word-break: keep-all; overflow-wrap: anywhere; }
+.yk-info td a { overflow-wrap: anywhere; }
+.yk-body :is(.yk-best3__text, .yk-best3__note, .yk-cmp td, .yk-chips li, .yk-tags li, .yk-kv td, .yk-features li, .yk-catch, .yk-btn) { word-break: keep-all; overflow-wrap: anywhere; }
 
-/* ASP提供バナー（300×250）を中央に */
+/* FV：イラストを右の枠に */
+.yk-hero img.yk-hero__img { display: block; width: 100%; height: auto; min-height: 0; object-fit: contain; align-self: end; }
+.site-heronote { margin: .3em 0 0 !important; }
+
+/* ロゴ（公式サイトの画面から撮影）を各パーツの枠に収める */
+.yk-best3__logo, .yk-cmp__logo, .yk-combo__logo, .yk-jobex__logo { display: block; }
+.yk-best3__logo img, .yk-cmp__logo img, .yk-combo__logo img, .yk-jobex__logo img, .yk-matrix__item img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.yk-logos__track li { flex: 0 0 112px; height: 40px; padding: 4px 6px; display: flex; align-items: center; justify-content: center; }
+.yk-logos__track li img { display: block; width: 100%; height: 32px; object-fit: contain; }
+.yk-matrix__item { display: grid; place-items: center; padding: 3px 4px; }
+.yk-matrix__item.is-pick { display: block; width: 52%; }
+.yk-matrix__item.is-pick img { height: 22px; }
+
+/* 解決事例カードのイラスト */
+.yk-jobcard img.site-jobimg { display: block; width: auto; height: 120px; margin: 10px auto; aspect-ratio: auto; object-fit: contain; }
+.site-src { margin: .4em 10px !important; }
+
+/* 編集部キャラクター・口コミの顔 */
+.yk-editor__chara { object-fit: cover; background: #fff; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+.yk-voice__face { display: block; object-fit: cover; }
+
+/* 公式画面・ASP提供バナー */
+.yk-shot__img { display: block; width: 100%; height: auto; aspect-ratio: auto; }
+.yk-shot figcaption a { color: inherit; }
 .site-banner { margin: 0 0 .4em !important; text-align: center; }
 .site-banner img { display: inline-block; width: 100%; max-width: 300px; }
 .site-banner--pick { margin: 8px !important; }
-.site-pickup-lead { margin: 0 4px 1em !important; font-size: 14px; }
+.yk-svchead__grid .site-banner img { max-width: 100%; }
 
-/* 2軸の早見表：ロゴの代わりに文字表記 */
-.site-mxname { display: block; text-align: center; font-size: 12px; }
-.site-mxtext { display: grid; place-items: center; height: auto !important; padding: 4px !important; font-size: 11px; font-weight: 700; line-height: 1.35; text-align: center; }
+/* 本文中のイラスト（いらすとや） */
+.site-illust { display: block; width: 180px; margin: .4em auto 1em; }
+.site-illust img { border-radius: 0; }
+.site-illust--sm { width: 120px; }
 
-/* 改行：見出しは語句の途中で1文字だけ残さない */
-.yk-sec-ttl, .yk-best3__ttl, .yk-pickup__ttl, .yk-rankhead, .yk-numh, .yk-hero__ttl { text-wrap: balance; }
-.yk-body p, .yk-body li { text-wrap: pretty; }
+/* 4〜6位の「もっと見る」は背景を青の枠に合わせる */
+.site-rankfold .yk-fold__body::after { background: linear-gradient(rgba(233,238,247,0), #e9eef7); }
 
+/* 診断の結果 */
+.site-finder-result:not(:empty) { margin-top: 12px; padding: 10px; border-radius: 6px; background: var(--yk-green-bg); }
+
+.site-back { margin: 1.6em 0 0 !important; }
+.site-back .yk-btn--sub { width: 80%; margin: 0 auto; }
 .site-legal { margin: 1.6em 0 0; }
 .site-legal p { margin: 0 0 .5em; }
-
-/* 比較表下などの補助ボタン（灰色）は横いっぱいでなく中央 */
-.yk-body > .yk-btn--sub { width: 80%; margin: 0 auto 1em; }
-.yk-body > .yk-btn { margin-bottom: 1.2em; }
