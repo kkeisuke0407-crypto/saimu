@@ -77,7 +77,7 @@ function gtagSendEvent(url) {
 </ul></div>
 <p>借金の悩みは、早く相談するほど取れる手段が多くなります。<br><span class="yk-mark">まずは無料相談で、今できることを確認しましょう。</span></p>
 
-<form class="yk-finder" action="#ranking" id="finder"><p class="yk-finder__ttl">あなたの状況なら、<br><em>どこを見る？</em></p>
+<form class="yk-finder" action="#ranking" id="situations"><p class="yk-finder__ttl">あなたの状況なら、<br><em>どこを見る？</em></p>
   <label class="yk-finder__row">今の状況<select name="s">
     <option value="hibari" selected>はじめて相談する・どの手続きが合うか迷う</option>
     <option value="hibari">個人再生・自己破産まで視野に入れたい</option>
@@ -120,7 +120,7 @@ function gtagSendEvent(url) {
 <p class="yk-catch">3社の詳細を見て相談先を選ぶ</p><a class="yk-btn yk-btn--sub" href="#ranking">各社の詳細を見る</a>
 
 <h2 class="yk-sec-ttl" id="ranking">債務整理に強い<em>相談先</em>おすすめ3選</h2>
-<p class="yk-small" style="text-align:center">無料相談・費用・対応範囲・秘密配慮で選びました（<a href="/ranking/">掲載順の基準</a>）</p>
+<p class="yk-small" id="firms" style="text-align:center">無料相談・費用・対応範囲・秘密配慮で選びました（<a href="/ranking/">掲載順の基準</a>）</p>
 <div class="yk-rankarea" id="firm-hibari"><h3 class="yk-rankhead"><span class="yk-medal">1</span>弁護士法人ひばり法律事務所</h3><p class="yk-rankcatch">任意整理から自己破産まで幅広く対応<br><span class="yk-small" style="color:inherit">初めての相談に</span></p>
 <div class="yk-tabs">
   <input type="radio" name="rk1" id="rk1-1" checked><input type="radio" name="rk1" id="rk1-2"><input type="radio" name="rk1" id="rk1-3">
@@ -288,7 +288,7 @@ function gtagSendEvent(url) {
 <footer class="yk-footer"><ul><li><a href="/operator/">運営者情報</a></li><li><a href="/ranking/">掲載順の基準（ランキング調査概要）</a></li><li><a href="/privacy/">プライバシーポリシー</a></li></ul><small>© 2026 借金スッキリnavi</small></footer>
 </div>
 <script>
-document.getElementById('finder').addEventListener('submit', function (e) {
+document.getElementById('situations').addEventListener('submit', function (e) {
   e.preventDefault();
   location.hash = 'firm-' + this.s.value;
 });

@@ -184,7 +184,7 @@ const best3 = `<section class="yk-best3"><h2 class="yk-best3__ttl"><em>債務整
 ${firms.map((f) => `  <li class="yk-best3__item"><span class="yk-best3__crown">${f.rank}</span><p class="yk-best3__text"><b>${f.short}</b><br><span class="yk-red">${f.badge}</span><br><span class="yk-mark">${f.catch}</span></p><p class="yk-catch">相談料0円</p>${out(f, "無料相談", "yk-btn yk-btn--sm")}</li>`).join("\n")}
 </ol></section>`;
 
-const finder = `<form class="yk-finder" action="#ranking" id="finder"><p class="yk-finder__ttl">あなたの状況なら、<br><em>どこを見る？</em></p>
+const finder = `<form class="yk-finder" action="#ranking" id="situations"><p class="yk-finder__ttl">あなたの状況なら、<br><em>どこを見る？</em></p>
   <label class="yk-finder__row">今の状況<select name="s">
 ${situations.map((s, i) => `    <option value="${byName[s.firm].key}"${i === 0 ? " selected" : ""}>${s.situation}</option>`).join("\n")}
   </select></label>
@@ -284,7 +284,7 @@ ${compare}
 <p class="yk-catch">3社の詳細を見て相談先を選ぶ</p><a class="yk-btn yk-btn--sub" href="#ranking">各社の詳細を見る</a>
 
 <h2 class="yk-sec-ttl" id="ranking">債務整理に強い<em>相談先</em>おすすめ3選</h2>
-<p class="yk-small" style="text-align:center">無料相談・費用・対応範囲・秘密配慮で選びました（<a href="/ranking/">掲載順の基準</a>）</p>
+<p class="yk-small" id="firms" style="text-align:center">無料相談・費用・対応範囲・秘密配慮で選びました（<a href="/ranking/">掲載順の基準</a>）</p>
 ${firms.map(rankBlock).join("\n\n")}
 
 <h2 class="yk-sec-ttl">債務整理で<em>相談できる</em>主な悩み</h2>
@@ -347,7 +347,7 @@ ${LEGAL.map((l) => `<p class="yk-small">${l}</p>`).join("\n")}
 ${footer}
 </div>
 <script>
-document.getElementById('finder').addEventListener('submit', function (e) {
+document.getElementById('situations').addEventListener('submit', function (e) {
   e.preventDefault();
   location.hash = 'firm-' + this.s.value;
 });
