@@ -13,7 +13,7 @@ const AXES = [
 
 const firms = [
   {
-    key: "hatano", rank: 1, page: true, asp: "0100h0td00orwh", banner: false,
+    key: "hatano", mc: "着手金0円・毎日21時まで", mc3: "着手金0円", rank: 1, page: true, asp: "0100h0td00orwh", banner: false,
     name: "司法書士法人はたの法務事務所", short: "はたの法務事務所", type: "司法書士法人（東京司法書士会）",
     official: "https://hikari-hatano.com/", logoW: 630, logoH: 154,
     catch: "迷ったらまずココ！相談料・着手金0円、毎日21時まで電話OK、全国どこでも出張無料。家族や職場にバレない対応まで任せられる",
@@ -50,7 +50,7 @@ const firms = [
     voiceSrc: "https://hikari-hatano.com/kaiketsu/",
   },
   {
-    key: "lotus", rank: 2, page: true, asp: "0100jqb500orwh", banner: true,
+    key: "lotus", mc: "相談は何度でも無料", mc3: "何度でも無料", rank: 2, page: true, asp: "0100jqb500orwh", banner: true,
     name: "弁護士法人東京ロータス法律事務所", short: "東京ロータス法律事務所", type: "弁護士法人（東京弁護士会）",
     official: "http://tokyo-lawtas.com/", logoW: 1082, logoH: 170,
     catch: "借金が多い・自己破産や個人再生ならココ！弁護士なのに任意整理の着手金は1件5,500円〜。相談は何度でも無料",
@@ -85,7 +85,7 @@ const firms = [
     ],
   },
   {
-    key: "hibari", rank: 3, page: true, asp: "0100l3sc00orwh", banner: true,
+    key: "hibari", mc: "LINEで今すぐ相談OK", mc3: "LINEでOK", rank: 3, page: true, asp: "0100l3sc00orwh", banner: true,
     name: "弁護士法人ひばり法律事務所", short: "ひばり法律事務所", type: "弁護士法人（東京弁護士会）",
     official: "https://hibari-law.net/", logoW: 418, logoH: 120,
     catch: "電話が苦手ならココ！LINEと匿名フォームで、今すぐ文字で相談できる弁護士事務所",
@@ -120,7 +120,7 @@ const firms = [
     ],
   },
   {
-    key: "avance", rank: 4, page: false, url: "https://avance-jud.jp/",
+    key: "avance", mc: "女性専用ダイヤルあり", rank: 4, page: false, url: "https://avance-jud.jp/",
     name: "アヴァンス法務事務所", short: "アヴァンス法務事務所", type: "司法書士法人",
     official: "https://avance-jud.jp/", logoW: 518, logoH: 88,
     catch: "女性専用ダイヤルあり。着手金は分割払いできる",
@@ -150,7 +150,7 @@ const firms = [
     ],
   },
   {
-    key: "hibiki", rank: 5, page: false, url: "https://hibiki-law.or.jp/service/debt-adjustment/",
+    key: "hibiki", mc: "24時間365日申込みOK", rank: 5, page: false, url: "https://hibiki-law.or.jp/service/debt-adjustment/",
     name: "弁護士法人・響", short: "弁護士法人・響", type: "弁護士法人（第二東京弁護士会）",
     official: "https://hibiki-law.or.jp/service/debt-adjustment/", logoW: 342, logoH: 102,
     catch: "24時間365日、全国から相談を申し込める。弁護士費用は分割可",
@@ -177,7 +177,7 @@ const firms = [
     cases: [],
   },
   {
-    key: "earth", rank: 6, page: false, asp: "0100p36600orwh", banner: true,
+    key: "earth", mc: "1社11,000円〜・減額報酬なし", rank: 6, page: false, asp: "0100p36600orwh", banner: true,
     name: "アース司法書士事務所", short: "アース司法書士事務所", type: "司法書士事務所（大阪司法書士会）",
     official: "https://www.earth-shiho.com/", logoW: 984, logoH: 180,
     catch: "任意整理は1社11,000円〜。減額報酬・オプション報酬なし",
