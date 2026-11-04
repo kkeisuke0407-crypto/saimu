@@ -12,9 +12,13 @@ img { max-width: 100%; height: auto; }
 .yk-info td a { overflow-wrap: anywhere; }
 .yk-body :is(.yk-best3__text, .yk-best3__note, .yk-cmp td, .yk-chips li, .yk-tags li, .yk-kv td, .yk-features li, .yk-catch, .yk-btn) { word-break: keep-all; overflow-wrap: anywhere; }
 
-/* FV：イラストを右の枠に */
-.yk-hero img.yk-hero__img { display: block; width: 100%; height: auto; min-height: 0; object-fit: contain; align-self: end; }
-.site-heronote { margin: .3em 0 0 !important; }
+/* FV：支給画像を全幅で。帯の日付（自動更新）を画像の帯に重ね、PRを右上に置く */
+.yk-hero.site-fv { display: block; position: relative; padding: 0; background: none; container-type: inline-size; }
+.site-fv__img { display: block; width: 100%; height: auto; }
+.site-fv__date { position: absolute; left: 9.6%; top: 4.9%; width: 32.6%; height: 8.3%; margin: 0 !important; display: flex; align-items: center; justify-content: center; background: #033c8e; color: #fff; font-size: 3.6cqw; font-weight: 900; font-style: italic; line-height: 1 !important; letter-spacing: .01em; white-space: nowrap; }
+.site-fv__pr { position: absolute; right: 1.2%; top: 1.6%; margin: 0 !important; }
+.site-fv__pr b { display: inline-block; padding: .1em .45em; border: 1px solid #777; background: rgba(255,255,255,.9); color: #444; font-size: 11px; font-weight: 400; line-height: 1.4; }
+.site-heronote { margin: .4em 0 0 !important; }
 
 /* ロゴ（公式サイトの画面から撮影）を各パーツの枠に収める */
 .yk-best3__logo, .yk-cmp__logo, .yk-combo__logo, .yk-jobex__logo { display: block; }
@@ -25,13 +29,17 @@ img { max-width: 100%; height: auto; }
 .yk-matrix__item.is-pick { display: block; width: 52%; }
 .yk-matrix__item.is-pick img { height: 22px; }
 
-/* 解決事例カードのイラスト */
-.yk-jobcard img.site-jobimg { display: block; width: auto; height: 120px; margin: 10px auto; aspect-ratio: auto; object-fit: contain; }
+/* 解決事例カードの写真（Unsplash） */
+.yk-jobcard img.site-jobimg { display: block; width: calc(100% - 20px); height: 140px; margin: 10px; aspect-ratio: auto; object-fit: cover; border-radius: 4px; }
 .site-src { margin: .4em 10px !important; }
 
-/* 編集部キャラクター・口コミの顔 */
-.yk-editor__chara { object-fit: cover; background: #fff; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
-.yk-voice__face { display: block; object-fit: cover; }
+/* 編集部・口コミのアイコン（ICOOON MONO） */
+.yk-editor__chara { object-fit: contain; padding: 6px; background: #fff; border: 2px solid var(--yk-blue); box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+.yk-voice__face { display: block; object-fit: contain; padding: 8px; background: #fff; border: 1px solid var(--yk-rule); }
+.site-px { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.site-total { font-size: 22px; color: var(--yk-red); }
+.yk-pickup__img.site-pickimg { display: block; width: calc(100% - 16px); height: auto; aspect-ratio: 8 / 5; object-fit: cover; object-position: top; border: 1px solid var(--yk-rule); }
+.yk-svchead__img { display: block; width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; border: 1px solid var(--yk-rule); border-radius: 4px; }
 
 /* 公式画面・ASP提供バナー */
 .yk-shot__img { display: block; width: 100%; height: auto; aspect-ratio: auto; }
@@ -41,10 +49,6 @@ img { max-width: 100%; height: auto; }
 .site-banner--pick { margin: 8px !important; }
 .yk-svchead__grid .site-banner img { max-width: 100%; }
 
-/* 本文中のイラスト（いらすとや） */
-.site-illust { display: block; width: 180px; margin: .4em auto 1em; }
-.site-illust img { border-radius: 0; }
-.site-illust--sm { width: 120px; }
 
 /* 4〜6位の「もっと見る」は背景を青の枠に合わせる */
 .site-rankfold .yk-fold__body::after { background: linear-gradient(rgba(233,238,247,0), #e9eef7); }

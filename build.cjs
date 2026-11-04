@@ -41,8 +41,10 @@ const ctaLabel = (f) => (f.asp ? "無料相談の窓口へ" : "公式サイト�
 const logo = (f, alt = f.name) => `<img src="/images/logo/${f.key}.webp" alt="${alt}" width="${f.logoW}" height="${f.logoH}" loading="lazy">`;
 const banner = (f) => `<a href="${href(f)}" ${rel(f)} data-cta="${f.key}-banner" onclick="return gtagSendEvent(this.href)"><img src="https://h.accesstrade.net/sp/rr?rk=${f.asp}" alt="${f.name}" width="300" height="250" loading="lazy"></a>`;
 const shot = (f) => `<figure class="yk-shot"><img class="yk-shot__img" src="/images/official/${f.key}.webp" alt="${f.name}の公式サイトの画面" width="960" height="${f.key === "hibiki" ? 540 : 600}" loading="lazy"><figcaption>出典：<a href="${f.official}" rel="nofollow noopener" target="_blank">${f.short}公式サイト</a>（${CHECKED}撮影）</figcaption></figure>`;
-const ill = (name, alt, w, h, cls = "") => `<img${cls ? ` class="${cls}"` : ""} src="/images/illust/${name}.webp" alt="${alt}" width="${w}" height="${h}" loading="lazy">`;
-const ILL = { dentaku: [381, 480, "電卓のイラスト"], "house-loan": [398, 480, "重い住宅ローンのイラスト"], court: [443, 480, "裁判所の建物のイラスト"] };
+const PHOTO = { kakei: [900, 1200, "書類の上に置かれた電卓"], house: [900, 600, "木の家の模型"], gavel: [900, 600, "木製のガベル"], coins: [900, 600, "瓶からこぼれた硬貨"], calc: [900, 600, "電卓とノートとペン"], phone: [900, 600, "スマートフォンを操作する手元"] };
+const photo = (name, cls = "") => `<img${cls ? ` class="${cls}"` : ""} src="/images/photo/${name}.webp" alt="${PHOTO[name][2]}" width="${PHOTO[name][0]}" height="${PHOTO[name][1]}" loading="lazy">`;
+const icon = (name, cls, alt = "") => `<img class="${cls}" src="/images/icon/${name}.svg" alt="${alt}" width="96" height="96" loading="lazy">`;
+const pixel = (f) => (f.asp ? `<img class="site-px" src="https://h.accesstrade.net/sp/rr?rk=${f.asp}" width="1" height="1" alt="">` : "");
 const CATCH = "相談料0円";
 const medal = (r) => `<span class="yk-medal${r <= 3 ? (r > 1 ? ` yk-medal--${r}` : "") : " yk-medal--n"}">${r}</span>`;
 const srcLabel = (u) => (u.startsWith("http") ? `<a href="${u}" rel="nofollow noopener" target="_blank">公式</a>` : u);
@@ -86,23 +88,23 @@ ${gtagHead}
 </head>`;
 
 const LEGAL = [
-  "※本ページはPR・広告を含みます。1〜3位は提携先で、掲載順は当サイトの基準（<a href=\"/ranking/\">ランキング調査概要</a>）によるものです。品質や優劣を保証するものではありません。",
+  "※本ページはPR・広告を含みます。掲載順は6項目の採点の合計点の順です（<a href=\"/ranking/\">ランキング調査概要</a>）。品質や優劣を保証するものではありません。",
   "※本ページは法律相談・法的助言ではなく、一般的な情報提供を目的としています。",
   `※相談料・費用・受付時間・対応エリアなどは各事務所の公式サイトの記載（${CHECKED}確認）です。変更される場合があるため、必ず各事務所にご確認ください。`,
   "※債務整理を行うと信用情報に一定期間登録されるなどの影響があります。手続きの効果やリスクは個別の状況により異なります。",
 ];
-const footer = `<div class="site-legal" id="public">${LEGAL.map((l) => `<p class="yk-small">${l}</p>`).join("")}<p class="yk-small">イラスト：いらすとや／ロゴ・公式画面：各事務所公式サイト（${CHECKED}撮影）</p></div>
+const footer = `<div class="site-legal" id="public">${LEGAL.map((l) => `<p class="yk-small">${l}</p>`).join("")}<p class="yk-small">写真：Unsplash／アイコン：ICOOON MONO／ロゴ・公式画面：各事務所公式サイト（${CHECKED}撮影）</p></div>
 <footer class="yk-footer"><ul><li><a href="/operator/">運営者情報</a></li><li><a href="/ranking/">ランキング調査概要</a></li><li><a href="/privacy/">プライバシーポリシー</a></li></ul><small>© 2026 ${SITE}</small></footer>`;
 
 /* ================= トップページ（ページの流れ） ================= */
-// A-1 FV
-const fv = `<header class="yk-hero">
-  <div><p class="yk-hero__year">${UPDATED}最新版</p>
-  <h1 class="yk-hero__ttl"><em>債務整理</em>の<br>相談先<br>徹底比較6選</h1></div>
-  ${ill("soudan", "相談窓口で話を聞く人のイラスト", 480, 401, "yk-hero__img")}
-  <ul class="yk-hero__badges"><li><span>相談料<b>0円</b>6社とも</span></li><li><span>土日も<b>受付</b>6社とも</span></li><li><span>比較<b>6項目</b>で採点</span></li></ul>
+// A-1 FV（支給画像。帯の日付は日本時間の当月に自動更新、PRは画像の右上）
+const fv = `<header class="yk-hero site-fv">
+  <h1 class="yk-sr">債務整理の相談先 徹底比較6選（相談料0円・土日も受付・6項目で採点）</h1>
+  <img class="site-fv__img" src="/images/fv.webp" alt="債務整理の相談先 徹底比較6選。相談料0円6社とも、土日も受付6社とも、比較6項目で採点" width="1672" height="941" fetchpriority="high">
+  <p class="site-fv__date" aria-hidden="true"><time data-month>${UPDATED}</time>最新版</p>
+  <p class="site-fv__pr"><b>PR</b></p>
 </header>
-<p class="yk-small site-heronote">※相談料・土日の受付は各事務所の公式サイトの記載（${CHECKED}確認。予約制を含む）。採点基準は<a href="/ranking/">ランキング調査概要</a></p>`;
+<p class="yk-small site-heronote">※プロモーションを含みます。相談料・土日の受付は各事務所の公式サイトの記載（${CHECKED}確認。予約制を含む）。採点基準は<a href="/ranking/">ランキング調査概要</a></p>`;
 
 // A-2 ロゴの横流し
 const logos = `<div class="yk-logos"><ul class="yk-logos__track">
@@ -121,18 +123,19 @@ ${firms.slice(0, 3).map((f) => `  <li class="yk-best3__item"><span class="yk-bes
 
 // B-2 求人の例カード → 公式サイトに掲載された解決事例
 const caseCards = firms.flatMap((f) => f.cases.map((c) => ({ f, c }))).slice(0, 5);
-const top2 = `<h2 class="yk-sec-ttl" id="types">公式サイトに掲載された<em>解決事例</em></h2>
+const top2 = `<h2 class="yk-sec-ttl" id="types">各社の<em>解決事例</em></h2>
 <p class="yk-hint">横にスクロールできます</p>
 <div class="yk-hscroll">
-${caseCards.map(({ f, c }) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__ttl">${c.ttl}</h3>${ill(c.img, ILL[c.img][2], ILL[c.img][0], ILL[c.img][1], "yk-jobcard__img site-jobimg")}<p class="yk-jobcard__pay"><b>${c.after.split("・")[0].split("＋")[0]}</b></p><table class="yk-kv"><tr><th>手続き</th><td>${c.proc}</td></tr><tr><th>相談前</th><td>${c.before}</td></tr><tr><th>結果</th><td><span class="yk-red">${c.after}</span></td></tr><tr><th>事務所</th><td>${f.short}</td></tr></table><ul class="yk-tags"><li>${f.type.split("（")[0]}</li><li>公式掲載</li></ul><p class="yk-small site-src">出典：<a href="${c.src}" rel="nofollow noopener" target="_blank">${f.short}公式サイト</a>（${CHECKED}確認）。結果は事案により異なります</p><p class="yk-catch">${CATCH}</p>${cta(f, ctaLabel(f), "yk-btn yk-btn--sm", "case")}</div>`).join("\n")}
+${caseCards.map(({ f, c }) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__ttl">${c.ttl}</h3>${photo(c.img, "yk-jobcard__img site-jobimg")}<p class="yk-jobcard__pay"><b>${c.after.split("・")[0].split("＋")[0]}</b></p><table class="yk-kv"><tr><th>手続き</th><td>${c.proc}</td></tr><tr><th>相談前</th><td>${c.before}</td></tr><tr><th>結果</th><td><span class="yk-red">${c.after}</span></td></tr><tr><th>事務所</th><td>${f.short}</td></tr></table><ul class="yk-tags"><li>${f.type.split("（")[0]}</li><li>公式掲載</li></ul><p class="yk-small site-src">出典：<a href="${c.src}" rel="nofollow noopener" target="_blank">${f.short}公式サイト</a>（${CHECKED}確認）。結果は事案により異なります</p><p class="yk-catch">${CATCH}</p>${cta(f, ctaLabel(f), "yk-btn yk-btn--sm", "case")}</div>`).join("\n")}
 </div>`;
 
 // C-1 タブ切替の比較表（もっと見る付き）
 const firmCell = (f) => `<span class="yk-cmp__rank">${f.rank}</span><span class="yk-cmp__logo">${logo(f, "")}</span><a class="yk-cmp__name" href="#firm-${f.key}">${f.short}</a><span class="yk-stars">${stars(total(f))}</span><span class="yk-grade">総合評価 <b>${grade(total(f))}</b></span>`;
 const cmpRow = (f, cells) => `<tr${f.rank === 1 ? ' class="is-pick"' : ""}><td>${firmCell(f)}</td>${cells}</tr>`;
-const tab1 = (f) => cmpRow(f, `<td>${maru(f.scores.fee0)}無料<br><span class="yk-pink">${f.info.area.split("（")[0]}</span></td><td class="is-left">${f.catch}<ul class="yk-chips"><li class="is-pink">${f.type.split("（")[0]}</li><li>${total(f)}/30点</li></ul></td><td><p class="yk-catch">${f.asp ? "無料" : "公式"}</p>${cta(f, f.asp ? "相談" : "公式", "yk-btn yk-btn--sm", "cmp")}</td>`);
-const tab2 = (f) => cmpRow(f, `<td>${maru(f.scores.cost)}<span class="yk-small">${f.fees[0][1]}</span></td><td>${maru(f.scores.split)}<span class="yk-small">${f.basis.split[0].includes("確認できず") ? "記載なし" : "分割可"}</span></td><td>${maru(f.scores.scope)}<span class="yk-small">${f.type.startsWith("弁護士") ? "全手続きを代理" : "1社140万円以下"}</span></td>`);
-const tab3 = (f) => cmpRow(f, `<td>${maru(f.scores.hours)}<span class="yk-small">${f.info.hours}</span></td><td>${maru(f.scores.family)}<span class="yk-small">${f.scores.family === 5 ? "具体的な記載あり" : f.scores.family === 4 ? "プライバシー厳守" : "記載なし"}</span></td><td>${maru(f.scores.fee0)}<span class="yk-small">無料</span></td>`);
+const METHOD = { hatano: "電話・Web・出張", lotus: "電話・メール", hibari: "電話・LINE・匿名フォーム", avance: "電話・女性専用・Web", hibiki: "電話・Web", earth: "電話・メール" };
+const tab1 = (f) => cmpRow(f, `<td><b class="site-total">${total(f)}</b><span class="yk-small">/30点</span></td><td class="is-left"><span class="yk-red">${f.point}</span><ul class="yk-chips"><li class="is-pink">${f.type.split("（")[0]}</li><li>相談料0円</li></ul></td><td><p class="yk-catch">${f.asp ? "無料" : "公式"}</p>${cta(f, f.asp ? "相談" : "公式", "yk-btn yk-btn--sm", "cmp")}</td>`);
+const tab2 = (f) => cmpRow(f, `<td>${maru(f.scores.cost)}<span class="yk-small">${f.fees[0][1]}</span></td><td>${maru(f.scores.scope)}<span class="yk-small">${f.type.startsWith("弁護士") ? "4つの手続きを代理" : "1社140万円以下"}</span></td><td><p class="yk-catch">${f.asp ? "無料" : "公式"}</p>${cta(f, f.asp ? "相談" : "公式", "yk-btn yk-btn--sm", "cmp2")}</td>`);
+const tab3 = (f) => cmpRow(f, `<td>${maru(f.scores.hours)}<span class="yk-small">${f.info.hours}</span></td><td>${maru(f.scores.method)}<span class="yk-small">${METHOD[f.key]}</span></td><td>${maru(f.scores.family)}<span class="yk-small">${f.scores.family === 5 ? "郵便物などの配慮を明記" : f.scores.family === 4 ? "プライバシー厳守" : "記載なし"}</span></td>`);
 const cmpTable = (head, rowFn, id) => `<div class="yk-fold"><input type="checkbox" id="${id}"><div class="yk-fold__body">
       <table class="yk-cmp"><colgroup><col class="c1"><col class="c2"><col><col class="c4"></colgroup>
         <tr><th>事務所</th>${head.map((h) => `<th>${h}</th>`).join("")}</tr>
@@ -141,32 +144,34 @@ ${firms.map((f) => "        " + rowFn(f)).join("\n")}
 const compare = `<h2 class="yk-sec-ttl" id="compare"><em>6社</em>をまとめて比較</h2>
 <div class="yk-tabs">
   <input type="radio" name="cmp1" id="cmp1-1" checked><input type="radio" name="cmp1" id="cmp1-2"><input type="radio" name="cmp1" id="cmp1-3">
-  <div class="yk-tabs__labels"><label for="cmp1-1">総合</label><label for="cmp1-2">費用</label><label for="cmp1-3">相談しやすさ</label></div>
+  <div class="yk-tabs__labels"><label for="cmp1-1">総合</label><label for="cmp1-2">費用・範囲</label><label for="cmp1-3">相談しやすさ</label></div>
   <div class="yk-tabs__panels">
-    <div>${cmpTable(["相談料", "編集部のひとこと", "窓口"], tab1, "cmp1-more")}</div>
-    <div>${cmpTable(["任意整理", "分割払い", "対応手続き"], tab2, "cmp2-more")}</div>
-    <div>${cmpTable(["受付時間", "家族への配慮", "相談料"], tab3, "cmp3-more")}</div>
+    <div>${cmpTable(["合計点", "ここが強い", "窓口"], tab1, "cmp1-more")}</div>
+    <div>${cmpTable(["任意整理の費用", "対応手続き", "窓口"], tab2, "cmp2-more")}</div>
+    <div>${cmpTable(["受付時間", "相談方法", "家族への配慮"], tab3, "cmp3-more")}</div>
   </div>
 </div>
-<p class="yk-small">※◎○△・星・総合評価は公式サイトの記載による6項目の採点（◎5点・○4点・△3点）。基準と根拠は<a href="/ranking/">ランキング調査概要</a>。1〜3位は提携先で、点数順ではありません。</p>`;
+<p class="yk-small">※◎○△・星・総合評価は公式サイトの記載による6項目の採点（◎5点・○4点・△3点）。順位は合計点の順。基準と根拠は<a href="/ranking/">ランキング調査概要</a>。</p>`;
 
-// C-2 2軸の早見表（任意整理の費用 × 対応できる手続き）
-const pos = { lotus: [74, 18], earth: [27, 20], hibari: [70, 70], hibiki: [74, 86], avance: [26, 54], hatano: [28, 80] };
+// C-2 2軸の早見表（横＝相談しやすさ：受付時間と相談方法の平均、縦＝初期費用の点）。同じ位置は横にずらす
+const mpos = (() => { const used = {}; return Object.fromEntries(firms.map((f) => { let x = 16 + ((f.scores.hours + f.scores.method) / 2 - 3) * 34, y = 84 - (f.scores.cost - 3) * 34; const k = Math.round(x) + "," + Math.round(y); if (used[k]) x -= 26 * used[k]; used[k] = (used[k] || 0) + 1; if (f.rank === 1) x = Math.min(Math.max(x, 30), 70); return [f.key, [Math.round(Math.min(Math.max(x, 16), 84)), Math.round(y)]]; })); })();
+// 1位の箱（幅52%）と重なる事務所は左へ逃がす
+(() => { const [px, py] = mpos[firms[0].key]; firms.slice(1).forEach((f) => { const [x, y] = mpos[f.key]; if (Math.abs(y - py) < 20 && Math.abs(x - px) < 42) mpos[f.key] = [16, y]; }); })();
 const matrix = `<h2 class="yk-sec-ttl" id="lawyer-vs">ひと目で分かる<em>早見表</em></h2>
 <div class="yk-matrix">
-  <span class="yk-matrix__ax yk-matrix__ax--t">任意整理 安い</span><span class="yk-matrix__ax yk-matrix__ax--b">高い・非公開</span><span class="yk-matrix__ax yk-matrix__ax--l">司法書士</span><span class="yk-matrix__ax yk-matrix__ax--r">弁護士</span>
+  <span class="yk-matrix__ax yk-matrix__ax--t">初期費用 安い</span><span class="yk-matrix__ax yk-matrix__ax--b">高い・非公開</span><span class="yk-matrix__ax yk-matrix__ax--l">相談 平日中心</span><span class="yk-matrix__ax yk-matrix__ax--r">毎日・夜も相談</span>
 ${firms.map((f) => f.rank === 1
-    ? `  <div class="yk-matrix__item is-pick" style="--x:${pos[f.key][0]}%;--y:${pos[f.key][1]}%">${logo(f)}<ul><li>✔ 4つの手続きを弁護士が代理</li><li>✔ 任意整理1社22,000円＋報酬</li></ul></div>`
-    : `  <span class="yk-matrix__item" style="--x:${pos[f.key][0]}%;--y:${pos[f.key][1]}%">${logo(f)}</span>`).join("\n")}
+    ? `  <div class="yk-matrix__item is-pick" style="--x:${mpos[f.key][0]}%;--y:${mpos[f.key][1]}%">${logo(f)}<ul><li>✔ 着手金0円・毎日21時まで</li><li>✔ 全国どこでも出張無料</li></ul></div>`
+    : `  <span class="yk-matrix__item" style="--x:${mpos[f.key][0]}%;--y:${mpos[f.key][1]}%">${logo(f)}</span>`).join("\n")}
 </div>
-<p class="yk-small">※縦は任意整理1社あたりの公表費用（東京ロータス5,500円〜、アース11,000円〜、ほか22,000円〜。響は非公開）、横は弁護士か司法書士か（${CHECKED}、各公式サイト）。</p>`;
+<p class="yk-small">※横は「受付時間」「相談方法」、縦は「初期費用」の採点（${CHECKED}、各公式サイト。基準は<a href="/ranking/">調査概要</a>）。同じ点の事務所は横にずらして表示。</p>`;
 
 // C-3 2社併用のすすめ
-const combo = `<section class="yk-combo" id="choose"><h2 class="yk-combo__ttl"><em>${F.hibari.short.replace("法律事務所", "")}</em> × <em>${F.lotus.short.replace("法律事務所", "")}</em><br>2社に無料相談して比べましょう！</h2>
-${[["hibari", "どの手続きが合うか、まず弁護士に整理してもらう", [["家族に内緒で進められるかを相談できる", "任意整理なら依頼する債権者を選べる、とFAQに記載。郵便物に事務所名を入れない対応も可能。"], ["4つの手続きすべてに対応", "任意整理・個人再生・自己破産・過払い請求を取扱業務に掲載。"]]], ["lotus", "任意整理の費用を抑えたい・土日に話したい", [["任意整理の着手金が1件5,500円〜", "公式の料金表に記載（税込）。"], ["土日祝も10時〜19時に電話で受付", "相談は何度でも無料。"]]]].map(([k, head, pts]) => `  <div class="yk-combo__card"><p class="yk-combo__head">${head}</p><span class="yk-combo__logo">${logo(F[k])}</span><a class="yk-combo__link" href="#firm-${k}">${F[k].name}</a>
+const combo = `<section class="yk-combo" id="choose"><h2 class="yk-combo__ttl"><em>はたの</em> × <em>東京ロータス</em><br>2社に無料相談して比べましょう！</h2>
+${[["hatano", "今夜・土日に、誰にも知られず相談したい", [["着手金0円・毎日21時まで電話OK", "相談料・着手金は無料。平日も土日祝も9時〜21時に受付、Webは24時間。"], ["郵便物を郵便局留めにできる", "携帯への連絡や郵便局留めで、家族や職場にバレない対応が可能とFAQに記載。"]]], ["lotus", "費用を抑えて弁護士に任せたい", [["弁護士で着手金1件5,500円〜", "公式の料金表に記載（税込）。司法書士のような1社140万円の上限もない。"], ["相談は何度でも無料・土日祝も受付", "土日・祝日も10時〜19時に電話できる。"]]]].map(([k, head, pts]) => `  <div class="yk-combo__card"><p class="yk-combo__head">${head}</p><span class="yk-combo__logo">${logo(F[k])}</span><a class="yk-combo__link" href="#firm-${k}">${F[k].name}</a>
     <ul class="yk-combo__points">${pts.map(([b, t]) => `<li><b>${b}</b><br>${t}</li>`).join("")}</ul>
     <p class="yk-catch">${CATCH}</p>${cta(F[k], `${F[k].short}の無料相談へ`, "yk-btn", "combo")}</div>`).join("\n")}
-<p class="yk-small">※相談料が無料なら、複数の事務所に相談して費用や方針を比べてから依頼先を決められます。</p>
+<p class="yk-small">※相談料が無料なので、2社に相談して費用や方針を比べてから依頼先を決められます。借入が1社140万円を超える・個人再生や自己破産を考えている場合は、弁護士（東京ロータス）に相談してください。</p>
 </section>`;
 
 // D ランキング
@@ -177,25 +182,25 @@ const jobex = (f) => f.cases.length
   ? `<p class="yk-hint">横にスクロールできます</p><div class="yk-hscroll">${f.cases.map((c, i) => `<div class="yk-jobex"><p class="yk-jobex__ttl">解決事例${i + 1}</p><ul class="yk-tags yk-tags--green"><li>${c.proc.split("（")[0]}</li><li>公式掲載</li></ul><table class="yk-kv"><tr><th>相談前</th><td>${c.before}</td></tr><tr><th>結果</th><td>${c.after}</td></tr></table><p class="yk-small site-src">出典：<a href="${c.src}" rel="nofollow noopener" target="_blank">公式サイト</a></p><p class="yk-catch">${CATCH}</p>${cta(f, ctaLabel(f), "yk-btn yk-btn--sm", "case")}<span class="yk-jobex__logo">${logo(f, "")}</span></div>`).join("")}</div>`
   : `<table class="yk-info"><tr><th>手続き</th><th>費用（税込・公式）</th></tr>${f.fees.map(([k, v]) => `<tr><td>${k}</td><td class="is-left">${v}</td></tr>`).join("")}</table><p class="yk-small">※公式サイトに解決事例の掲載がないため、費用の目安を掲載しています。</p>`;
 const voice = (f) => (f.voices ? `<h4 class="yk-voice__ttl">${f.short}の口コミ</h4>
-<ul class="yk-voice">${f.voices.map((v) => `<li><div class="yk-voice__who">${ill(v.face, "", 479, 480, "yk-voice__face")}${v.who}</div><p>${v.text}</p></li>`).join("")}</ul>
+<ul class="yk-voice">${f.voices.map((v) => `<li><div class="yk-voice__who">${icon(v.face, "yk-voice__face")}${v.who}</div><p>${v.text}</p></li>`).join("")}</ul>
 <p class="yk-small">※<a href="${f.voiceSrc}" rel="nofollow noopener" target="_blank">${f.short}公式サイト</a>掲載の解決事例（ご相談者のコメント）を要約。個人の感想です。</p>` : "");
 const rankBlock = (f) => `<div class="yk-rankarea" id="firm-${f.key}"><h3 class="yk-rankhead">${medal(f.rank)}${f.name}</h3><p class="yk-rankcatch">${f.catch}</p>
 <div class="yk-tabs">
   <input type="radio" name="rk${f.rank}" id="rk${f.rank}-1" checked><input type="radio" name="rk${f.rank}" id="rk${f.rank}-2"><input type="radio" name="rk${f.rank}" id="rk${f.rank}-3">
   <div class="yk-tabs__labels"><label for="rk${f.rank}-1">イチオシ<br>ポイント</label><label for="rk${f.rank}-2">基本情報</label><label for="rk${f.rank}-3">${f.cases.length ? "解決<br>事例" : "費用の<br>目安"}</label></div>
   <div class="yk-tabs__panels" style="background:#fff;padding:10px">
-    <div>${f.asp ? `<p class="site-banner">${banner(f)}</p>` : shot(f)}<p class="yk-catch">${CATCH}</p>${cta(f, f.asp ? `${f.short}の<br>無料相談の窓口へ` : `${f.short}の<br>公式サイトへ`, "yk-btn", "tab")}
+    <div>${shot(f)}<p class="yk-catch">${CATCH}</p>${cta(f, f.asp ? `${f.short}の<br>無料相談の窓口へ` : `${f.short}の<br>公式サイトへ`, "yk-btn", "tab")}
       <div class="yk-features"><p class="yk-features__ttl">特徴</p><ul>${f.features.map(([t, s]) => `<li><span>${t}</span><small>※${s}</small></li>`).join("")}</ul></div></div>
     <div>${radar(f)}${infoTable(f)}</div>
     <div>${jobex(f)}</div>
   </div>
 </div>
-<div class="yk-editor"><p class="yk-editor__ttl">編集部の<em>イチオシ</em>ポイント</p>${ill("editor", "編集部のイラスト", 479, 480, "yk-editor__chara")}<div class="yk-editor__body"><p>${f.editor}</p><p class="yk-small" style="text-align:right">※${CHECKED}に公式サイトで確認</p></div></div>
+<div class="yk-editor"><p class="yk-editor__ttl">編集部の<em>イチオシ</em>ポイント</p>${icon("editor", "yk-editor__chara", "編集部")}<div class="yk-editor__body"><p>${f.editor}</p><p class="yk-small" style="text-align:right">※${CHECKED}に公式サイトで確認</p></div></div>
 ${voice(f)}
 <div class="yk-btnpair">${f.page ? `<a class="yk-btn yk-btn--sub" href="/${f.key}/">詳細は<br>こちら</a>` : `<a class="yk-btn yk-btn--sub" href="#compare">比較表<br>に戻る</a>`}<div><p class="yk-catch">${CATCH}</p>${cta(f, f.asp ? `${f.short}の<br>無料相談の窓口へ` : `${f.short}の<br>公式サイトへ`, "yk-btn", "pair")}</div></div>
 </div>`;
 const ranking = `<h2 class="yk-sec-ttl" id="ranking">債務整理の相談先<em>ランキング</em></h2>
-<p class="yk-small" id="firms" style="text-align:center">1〜3位は提携先です。順位と採点の決め方は<a href="/ranking/">ランキング調査概要</a></p>
+<p class="yk-small" id="firms" style="text-align:center">6項目の合計点の順です。採点の決め方は<a href="/ranking/">ランキング調査概要</a></p>
 ${firms.slice(0, 3).map(rankBlock).join("\n")}
 <div class="yk-fold site-rankfold"><input type="checkbox" id="rank-more"><div class="yk-fold__body">
 ${firms.slice(3).map(rankBlock).join("\n")}
@@ -204,7 +209,7 @@ ${firms.slice(3).map(rankBlock).join("\n")}
 // E-1 迷ったらまずは
 const pickup = `<section class="yk-pickup" id="faq"><h2 class="yk-pickup__ttl"><small>迷ったらまずは</small><br><em>ここ</em>に相談すれば安心！</h2>
 <ul class="yk-pickup__list">
-${["hibari", "lotus"].map((k) => `  <li class="yk-pickup__item"><p class="yk-pickup__name">${F[k].short}</p><p class="site-banner site-banner--pick">${banner(F[k])}</p><p class="yk-pickup__text">${F[k].best3.join("。")}。</p><p class="yk-catch">${CATCH}</p>${cta(F[k], "無料相談", "yk-btn yk-btn--sm", "pickup")}</li>`).join("\n")}
+${["hatano", "lotus"].map((k) => `  <li class="yk-pickup__item"><p class="yk-pickup__name">${F[k].short}</p><img class="yk-pickup__img site-pickimg" src="/images/official/${k}.webp" alt="${F[k].name}の公式サイトの画面" width="960" height="600" loading="lazy"><p class="yk-pickup__text">${F[k].best3.join("。")}。</p><p class="yk-catch">${CATCH}</p>${cta(F[k], "無料相談", "yk-btn yk-btn--sm", "pickup")}</li>`).join("\n")}
 </ul></section>`;
 
 // E-2 診断（ブラウザー内で判定）
@@ -236,6 +241,10 @@ const FINDER_JS = `<script>
 })();
 </script>`;
 
+const MONTH_JS = `<script>
+(function () { var t = document.querySelector('time[data-month]'); if (!t) return; var d = new Date(Date.now() + (new Date().getTimezoneOffset() + 540) * 60000); t.textContent = d.getFullYear() + '年' + (d.getMonth() + 1) + '月'; t.setAttribute('datetime', d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')); })();
+</script>`;
+
 const LD = [
   { "@context": "https://schema.org", "@type": "Article", headline: TITLE, description: DESC, mainEntityOfPage: `${ORIGIN}/`, dateModified: UPDATED_ISO, author: { "@type": "Organization", name: `${SITE} 編集部` }, publisher: { "@type": "Organization", name: SITE } },
 ];
@@ -245,7 +254,6 @@ const index = `${head({ title: TITLE, desc: DESC, url: `${ORIGIN}/`, ld: LD })}
 <div class="yk-body site-wrap">
 ${fv}
 ${logos}
-${pr}
 ${best3}
 ${top2}
 ${compare}
@@ -256,14 +264,27 @@ ${pickup}
 ${finder}
 ${footer}
 </div>
+${firms.map(pixel).join("")}
 ${RADAR_JS}
 ${FINDER_JS}
+${MONTH_JS}
 </body>
 </html>
 `;
 
 /* ================= 個別ページ（パーツ集の個別ページの流れ） ================= */
 const DETAIL = {
+  hatano: {
+    strengths: [
+      ["相談料・着手金0円で始められる", "公式トップで相談料・着手金の無料を案内しています。任意整理の基本報酬は1社22,000円〜、減額報酬は11％（税込）。契約時に報酬の内訳書で説明すると料金ページに書かれています。", "https://hikari-hatano.com/houshu/"],
+      ["毎日21時まで電話・全国どこでも出張無料", "電話は平日も土日祝も9:00〜21:00、Webは24時間受け付けています。全国出張の料金は無料で、事務所に行けない人も相談できます。", "https://hikari-hatano.com/houshu/"],
+      ["家族や職場にバレない対応を具体的に説明", "FAQでは、携帯電話に連絡する・郵便物を郵便局留めにして自宅に届かないようにするなど、相談に応じてバレないように対応できると答えています。司法書士に依頼すれば債権者は本人に直接連絡できなくなるため、会社に連絡が行くこともないと説明しています。", "https://hikari-hatano.com/qa/"],
+    ],
+    forWho: ["平日の昼は電話しにくく、夜や土日に相談したい", "家族や職場に知られずに任意整理したい", "事務所に行けないので、出張で相談したい"],
+    steps: [["無料相談（最短即日）", "メールか電話で相談する。専門の相談員が対応する"], ["解決方法の提案", "今の借金の状況を伝え、合う手続きの提案を受ける"], ["受任契約・受任通知で取り立てが止まる", "契約すると各金融会社に受任通知が送られ、取り立てがストップする"], ["預かり金の積立と和解交渉", "取り立てが止まっている間（約5〜6か月）に返済分を積み立て、事務所が和解交渉をする"]],
+    faqSrc: "https://hikari-hatano.com/qa/",
+    faq: [["家族に内緒で債務整理できる？", "可能です。家族が保証人・連帯保証人になっていない限り、家族に請求が行くことはありません。自己破産や個人再生では家族の収入の書類を求められることがあり、知られる可能性があります。"], ["会社にばれる？", "司法書士や弁護士に依頼すると、債権者は本人に直接連絡できなくなるため、会社に連絡が行くことはありません。"], ["催促は本当に止まる？", "依頼すると貸金業者に受任通知が送られ、取り立てができなくなるため催促は止まります。"]],
+  },
   hibari: {
     strengths: [
       ["4つの手続きすべてを弁護士が代理", "任意整理・個人再生・自己破産・過払い請求を取扱業務として掲載しています。借入が1社140万円を超える場合や、裁判所の手続きが必要な場合も弁護士に任せられます。", "https://hibari-law.net/fee/"],
@@ -302,9 +323,9 @@ const DETAIL = {
 const detailPage = (f) => {
   const d = DETAIL[f.key];
   const body = `<nav class="yk-crumb"><a href="/">TOP</a><span>${f.short}</span></nav>
-${pr}
+<p class="yk-pr"><b>PR</b><span>本ページはプロモーションを含みます。</span></p>
 <p class="yk-svchead__name">${f.name}</p><p class="yk-svchead__catch">${f.catch}</p>
-<div class="yk-svchead__grid"><div class="yk-features"><p class="yk-features__ttl">特徴</p><ul>${f.features.slice(0, 3).map(([t]) => `<li><span>${t}</span></li>`).join("")}</ul></div><p class="site-banner">${banner(f)}</p></div>
+<div class="yk-svchead__grid"><div class="yk-features"><p class="yk-features__ttl">特徴</p><ul>${f.features.slice(0, 3).map(([t]) => `<li><span>${t}</span></li>`).join("")}</ul></div><img class="yk-svchead__img" src="/images/official/${f.key}.webp" alt="${f.name}の公式サイトの画面" width="960" height="600"></div>
 ${infoTable(f)}
 <p class="yk-catch">${CATCH}</p>${cta(f, "まずは無料相談の窓口へ", "yk-btn", "detail-top")}
 
@@ -315,13 +336,13 @@ ${d.strengths.map(([t, x, s], i) => `<h3 class="yk-numh" id="s${i + 1}"><span>�
 <p class="yk-catch">${CATCH}</p>${cta(f, "まずは無料相談の窓口へ", "yk-btn", "detail-strength")}
 
 <h2 class="yk-sec-ttl">こんな方に<em>おすすめ</em></h2>
-<figure class="mt-img site-illust">${ill("worry-card", "借金で悩む男性のイラスト", 430, 480)}<figcaption class="mt-img__note">イラスト：いらすとや</figcaption></figure>
+<figure class="mt-img">${photo("calc")}<figcaption class="mt-img__note">写真：Unsplash</figcaption></figure>
 <div class="yk-listbox"><p class="yk-listbox__ttl">${f.short}が向いている人</p><ul>${d.forWho.map((x) => `<li>${x}</li>`).join("")}</ul></div>
 
 <h2 class="yk-sec-ttl">相談から<em>手続き</em>までの流れ</h2>
 <div class="yk-order"><p class="yk-order__ttl">利用の流れ</p><ol>${d.steps.map(([t], i) => `<li><span>ステップ${i + 1}</span><a href="#step${i + 1}">${t}</a></li>`).join("")}</ol></div>
 ${d.steps.map(([t, x], i) => `<h3 class="yk-numh" id="step${i + 1}"><span>ステップ${i + 1}</span>${t}</h3>\n<p>${x}</p>`).join("\n")}
-<figure class="mt-img site-illust site-illust--sm">${ill("tokusoku", "督促状のイラスト", 480, 480)}<figcaption class="mt-img__note">イラスト：いらすとや</figcaption></figure>
+<figure class="mt-img">${photo("phone")}<figcaption class="mt-img__note">写真：Unsplash</figcaption></figure>
 <p class="yk-catch">${CATCH}</p>${cta(f, "まずは無料相談の窓口へ", "yk-btn", "detail-flow")}
 
 <h2 class="yk-sec-ttl">${f.cases.length ? "公式サイトの<em>解決事例</em>" : "費用の<em>目安</em>"}</h2>
@@ -339,6 +360,7 @@ ${d.faq.map(([q, a], i) => `<h3 class="yk-numh" id="q${i + 1}"><span>質問${i +
 ${body}
 ${footer}
 </div>
+${pixel(f)}
 </body>
 </html>
 `;
@@ -361,7 +383,7 @@ const rankingPage = sub("ranking", "ランキング調査概要", `<div class="y
 <h2 class="yk-numh" id="target"><span>対象</span>比較した6社</h2>
 <p>債務整理（任意整理・個人再生・自己破産・過払い金請求）の無料相談を受け付けている弁護士法人・司法書士事務所6社。各社の公式サイトを${CHECKED}に確認し、ロゴ・画面は同日に撮影しました。</p>
 <h2 class="yk-numh" id="order"><span>順位</span>掲載順の決め方</h2>
-<p><span class="yk-red">1〜3位は当サイトの提携先</span>で、提携先の中では無料相談・費用・対応範囲・家族への配慮を見て並べています。4〜6位は下の6項目の合計点の順です。そのため、<b>順位と合計点の順は一致しません</b>。掲載順は品質や優劣を保証するものではありません。</p>
+<p>掲載順は、下の<b>6項目の合計点の順</b>です（6社とも点数が異なり、同点はありません）。当サイトは${firms.filter((f) => f.asp).length}社（${firms.filter((f) => f.asp).map((f) => f.short).join("・")}）と提携していますが、提携の有無で点数は変えていません。掲載順は品質や優劣を保証するものではありません。</p>
 <h2 class="yk-numh" id="axes"><span>採点</span>6項目の採点基準</h2>
 <p>各項目を公式サイトの記載だけで判定し、◎＝5点・○＝4点・△＝3点（30点満点）。星は1項目あたりの平均点（四捨五入）、総合評価は27点以上＝S、24点以上＝A、それ未満＝B。</p>
 <table class="yk-info">${AXES.map((a) => `<tr><th>${a.label}</th><td class="is-left">${a.rule}</td></tr>`).join("")}</table>
