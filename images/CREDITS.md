@@ -1,22 +1,27 @@
 # 画像の出典（2026-11-04）
 
-| フォルダ | 内容 | 出典・取得方法 |
+| ファイル | 内容 | 出典・取得方法 |
 |---|---|---|
-| `logo/` | 6社のロゴ | 各事務所公式サイトのヘッダーを撮影（Playwright・1280px・2倍。2026-11-04） |
-| `official/` | 6社の公式サイト画面 | 各公式サイトのトップ（響は債務整理ページ）を撮影（1280×800。2026-11-04） |
-| `illust/` | イラスト9点 | いらすとや（https://www.irasutoya.com/）。下表 |
-| ASP提供バナー | 1〜3位のバナー | アクセストレードの rr リンクから表示（サイト内には保存しない） |
+| `fv.webp` | FV画像 | ユーザー支給（2026-11-04）。帯の「◯年◯月最新版」はHTMLで重ね、日本時間の当月に自動更新 |
+| `logo/` | 6社のロゴ | 各事務所公式サイトのヘッダーを撮影（1280px・2倍。2026-11-04） |
+| `official/` | 6社の公式サイト画面 | 各公式サイトのトップ（響は債務整理ページ）を撮影（1280×800。2026-11-04）。ランキング・個別ページ・迷ったらまずはで使用 |
+| `photo/` | 写真6点 | Unsplash（https://unsplash.com/license 商用可・クレジット不要）。人物の顔が写らないものだけ。下表 |
+| `icon/` | 人物アイコン3点 | ICOOON MONO（https://icooon-mono.com/ 商用可・クレジット不要）。口コミの顔・編集部 |
 
-| ファイル | いらすとやの記事 |
+| ファイル | Unsplash |
 |---|---|
-| soudan.webp | 相談窓口のイラスト https://www.irasutoya.com/2015/03/blog-post_879.html |
-| worry-card.webp | 借金で悩む男性のイラスト（カード） https://www.irasutoya.com/2017/05/blog-post_543.html |
-| tokusoku.webp | 督促状のイラスト https://www.irasutoya.com/2015/11/blog-post_105.html |
-| editor.webp | いろいろな女性会社員のアイコン https://www.irasutoya.com/2015/10/blog-post_29.html |
-| court.webp | 裁判所の建物のイラスト https://www.irasutoya.com/2018/01/blog-post_0.html |
-| house-loan.webp | 重い住宅ローンのイラスト https://www.irasutoya.com/2016/05/blog-post_140.html |
-| dentaku.webp | 正面から見た電卓のイラスト（小） https://www.irasutoya.com/2017/09/blog-post_323.html |
-| face-w1.webp | 女性の顔のアイコン https://www.irasutoya.com/2013/10/blog-post_6907.html |
-| face-m1.webp | 男性の顔のアイコン https://www.irasutoya.com/2013/10/blog-post_9098.html |
+| photo/kakei.webp | https://images.unsplash.com/photo-1642043175009-5997b3a078d8 （書類の上の電卓） |
+| photo/house.webp | https://images.unsplash.com/photo-1768839720694-46c264d72b34 （木の家の模型） |
+| photo/gavel.webp | https://images.unsplash.com/photo-1589391886645-d51941baf7fb （ガベル） |
+| photo/coins.webp | https://images.unsplash.com/photo-1585143790814-b40d4b829e4a （瓶からこぼれた硬貨） |
+| photo/calc.webp | https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48f （電卓とノート） |
+| photo/phone.webp | https://images.unsplash.com/photo-1512428559087-560fa5ceab42 （スマートフォンを操作する手元） |
 
-いらすとやの規約：商用利用は1つの制作物につき20点まで（それ以上は要連絡）。本サイトの使用は9点。
+| ファイル | ICOOON MONO |
+|---|---|
+| icon/woman.svg | https://icooon-mono.com/00134-女性の人物フリーアイコン素材/ |
+| icon/man.svg | https://icooon-mono.com/00135-男性の人物アイコン素材/ |
+| icon/editor.svg | https://icooon-mono.com/11321-メガネをかけた女性のアイコン素材/ |
+
+- いらすとやの画像はすべて外した（2026-11-04 ユーザー指示）。
+- ぱくたそは人物写真の「購入者の声などのなりすまし」「イメージキャラクター」「強くネガティブな使用」を禁止しており、また画像配信がブラウザー以外からの取得を拒否したため使っていない。
