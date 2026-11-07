@@ -92,5 +92,22 @@ img { max-width: 100%; height: auto; }
 .mt-author__txt:last-child { margin-bottom: 0 !important; }
 /* 2つのパーツ集でマーカーの色をそろえる */
 :root { --mt-mark: var(--yk-mark); }
-/* 知識2：長い文は自然に折り返す */
-.yk-body .yk-features.site-normal li { word-break: normal; }
+/* 改行は文節の切れ目（build.cjs が入れる <wbr>）だけで。入りきらないときだけ強制改行 */
+.yk-body { word-break: keep-all; overflow-wrap: anywhere; }
+/* 比較表の相談しやすさタブ：家族への配慮の列を広く */
+.yk-tabs__panels > div:nth-child(3) .yk-cmp col.c1 { width: 25%; }
+.yk-tabs__panels > div:nth-child(3) .yk-cmp col.c2 { width: 21%; }
+.yk-tabs__panels > div:nth-child(3) .yk-cmp col.c4 { width: 26%; }
+/* 運営者情報：メールアドレスとURLを1行に */
+.site-optable th { width: 30%; font-size: 12px; }
+.site-optable td { font-size: 13px; }
+/* いちばん狭い端末（幅340px以下）：語が入るよう文字を少し小さく */
+@media (max-width: 340px) {
+  .yk-cmp__name { font-size: 10.5px; }
+  .yk-cmp td .yk-small { font-size: 10.5px !important; }
+  .yk-tabs__panels > div:nth-child(3) .yk-cmp td .yk-small { font-size: 10px !important; }
+  .yk-cmp .site-cmpbtn { padding: .45em .9em .45em .15em; font-size: 10.5px; white-space: nowrap; }
+  .yk-cmp .site-cmpbtn::before { right: .25em; }
+  .yk-best3__text { font-size: 11.5px; }
+  .site-optable td { font-size: 11.5px; }
+}

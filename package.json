@@ -1,0 +1,11 @@
+{
+  "name": "saimu-navolio",
+  "private": true,
+  "description": "借金スッキリnavi の生成スクリプト用",
+  "scripts": {
+    "build": "node build.cjs"
+  },
+  "devDependencies": {
+    "budoux": "^0.10.3"
+  }
+}

@@ -7,6 +7,57 @@ const path = require("path");
 const { CHECKED, AXES, firms, total, grade, stars } = require("./data.cjs");
 const OUT = __dirname;
 
+// 語の途中で改行しないよう、文節の切れ目に <wbr> を入れる（BudouX）。CSSの word-break: keep-all とセットで働く。
+// 事務所名はBudouXに任せると「は｜たの」のように切れるので、切れ目をここで決めておく。
+const { loadDefaultJapaneseParser } = require("budoux");
+const budoux = loadDefaultJapaneseParser();
+const NAME_PHRASES = [["司法書士法人", "はたの", "法務事務所"], ["はたの", "法務事務所"], ["弁護士法人", "東京ロータス", "法律事務所"], ["東京ロータス", "法律事務所"], ["弁護士法人", "ひばり", "法律事務所"], ["ひばり", "法律事務所"], ["アヴァンス", "法務事務所"], ["アース", "司法書士", "事務所"], ["弁護士法人", "（東京弁護士会）"], ["弁護士法人", "（第二東京", "弁護士会）"], ["司法書士法人", "（東京司法書士会）"], ["司法書士事務所", "（大阪司法書士会）"], ["弁護士法人・", "響"], ["はたの"], ["東京ロータス"], ["ひばり"], ["アヴァンス"], ["アース"]];
+const NAME_RE = new RegExp("(" + NAME_PHRASES.map((n) => n.join("")).join("|") + ")");
+const parsePhrases = (text) => text.split(NAME_RE).flatMap((part) => {
+  if (!part) return [];
+  const name = NAME_PHRASES.find((n) => n.join("") === part);
+  return name ? name : budoux.parse(part).flatMap((ph) => ph.split(/(?<=着手金|基本報酬|報酬金|報酬|実費|1社|1件|でも|も)(?=\d)/));
+});
+const INLINE = new Set(["b", "i", "em", "strong", "span", "a", "small", "mark", "time", "wbr", "sup", "sub", "u"]);
+const SKIP = new Set(["script", "style", "select", "textarea", "svg", "title", "head", "noscript"]);
+const wrapHtml = (html) => {
+  const tokens = html.match(/<!--[\s\S]*?-->|<[^>]+>|[^<]+/g) || [];
+  let run = [], skip = null;
+  const flush = () => {
+    if (run.length) {
+      const text = run.map((i) => tokens[i]).join("");
+      if (/[ぁ-んァ-ヶ一-龥]/.test(text)) {
+        const cuts = new Set(); let pos = 0;
+        for (const ph of parsePhrases(text)) { pos += ph.length; if (pos < text.length) cuts.add(pos); }
+        let off = 0;
+        for (const i of run) {
+          const t = tokens[i]; let out = "";
+          for (let k = 0; k < t.length; k++) { if (off + k > 0 && cuts.has(off + k) && !/\s/.test(t[k]) && !(k > 0 && /\s/.test(t[k - 1])) && !/&[#a-z0-9]*$/i.test(t.slice(0, k))) out += "<wbr>"; out += t[k]; }
+          tokens[i] = out; off += t.length;
+        }
+      }
+    }
+    run = [];
+  };
+  tokens.forEach((tok, i) => {
+    const m = tok.match(/^<(\/?)([a-zA-Z0-9]+)/);
+    if (skip) { if (m && m[1] && m[2].toLowerCase() === skip) skip = null; return; }
+    if (tok.startsWith("<!--")) return;
+    if (m) {
+      const name = m[2].toLowerCase();
+      if (SKIP.has(name) && !m[1] && !tok.endsWith("/>")) { flush(); skip = name; return; }
+      if (!INLINE.has(name)) flush();
+      return;
+    }
+    run.push(i);
+  });
+  flush();
+  return tokens.join("");
+};
+// スクリプト内で innerHTML に入れる文字列（相談先チェックの結果）にも同じ処理をする
+const wrapJsStrings = (js) => js.replace(/'((?:[^'\\n])*[ぁ-んァ-ヶ一-龥](?:[^'\\n])*)'/g, (_, str) => `'${wrapHtml(str)}'`);
+const wrapPage = (page) => page.replace(/<body>[\s\S]*<\/body>/, (b) => wrapHtml(b));
+
 const SITE = "借金スッキリnavi";
 const ORIGIN = "https://saimu.navolio.net";
 const TITLE = "債務整理の相談先おすすめ6選｜法律事務所7年目の編集長が選び方を解説【2026年11月】";
@@ -120,7 +171,7 @@ const pr = `<p class="yk-pr"><b>PR</b><span>アフィリエイトサイトのた
 // B-1 BEST3
 const best3 = `<section class="yk-best3"><h2 class="yk-best3__ttl"><em>債務整理</em>に強い相談先<em>BEST3</em></h2>
 <ol class="yk-best3__list">
-${firms.slice(0, 3).map((f) => `  <li class="yk-best3__item"><span class="yk-best3__crown">${f.rank}</span><span class="yk-best3__logo">${logo(f)}</span><p class="yk-best3__text"><span class="yk-red">${f.best3card[0]}</span><br><span class="yk-mark">${f.best3card[1]}</span>。${f.best3card[2]}</p><p class="yk-best3__note">${f.note}</p><p class="yk-catch">${f.mc3}</p>${cta(f, "無料相談", "yk-btn yk-btn--sm", "best3")}</li>`).join("\n")}
+${firms.slice(0, 3).map((f) => `  <li class="yk-best3__item"><span class="yk-best3__crown">${f.rank}</span><span class="yk-best3__logo">${logo(f)}</span><p class="yk-best3__text"><span class="yk-red">${f.best3card[0]}</span><br><span class="yk-mark">${f.best3card[1]}</span><br>${f.best3card[2]}</p><p class="yk-best3__note">${f.note}</p><p class="yk-catch">${f.mc3}</p>${cta(f, "無料相談", "yk-btn yk-btn--sm", "best3")}</li>`).join("\n")}
 </ol></section>`;
 
 // B-2 求人の例カード → 公式サイトに掲載された解決事例
@@ -163,7 +214,7 @@ ${term("過払い金請求", "払いすぎた利息を取り戻す", "昔から�
 <p class="mt-oneline site-center">どれが合うかは<br><span>無料相談で決めるものです</span></p>
 
 <h3 class="yk-numh site-keep" id="k2"><span>知識2</span>${GENRE_ITEMS[1]}</h3>
-<div class="yk-features site-normal"><p class="yk-features__ttl">債務整理でこう変わる</p><ul>
+<div class="yk-features"><p class="yk-features__ttl">債務整理でこう変わる</p><ul>
 <li><span><b>任意整理</b><br>払っても利息で減らない<br>→ <b class="yk-red">これからの利息がなくなる可能性</b>があります。元金だけを3〜5年で返すので、払った分だけ借金が減っていきます</span></li>
 <li><span><b>個人再生</b><br>借金が大きすぎて返せない<br>→ <b class="yk-red">借金そのものを大きく減らせる可能性</b>があります。減った分を原則3年で返します。家を残せる場合もあります</span></li>
 <li><span><b>自己破産</b><br>どうやっても返せない<br>→ 裁判所に認められれば、<b class="yk-red">返済が原則なくなります</b>。借金のない生活からやり直せます</span></li>
@@ -202,30 +253,30 @@ const FEE_NINI = {
   lotus: "着手金<wbr>5,500円〜<br>報酬金<wbr>0〜11,000円<br>実費<wbr>5,500円<br>債務額・件数で変動",
   hibari: "着手金<wbr>22,000円<br>報酬金<wbr>22,000円<br>減額報酬<wbr>11％<br>実費<wbr>5,500円",
   avance: "着手金<wbr>22,000円〜<br>減額報酬<wbr>11％<br>事務手数料は別",
-  hibiki: "公式サイトに記載なし（問い合わせ）",
+  hibiki: "公式サイトに記載なし<br>問い合わせ",
   earth: "基本報酬<wbr>11,000円〜<br>減額報酬なし<br>完済分0円<br>実費は別",
 };
 const FEE_COURT = {
-  hatano: "破産22万円〜<br>再生38.5万円〜<br><b>書類作成のみ</b>",
-  lotus: "破産55万円<br>再生77万円<br>諸費用5.5万円",
-  hibari: "破産44万円〜<br>再生55万円〜",
-  avance: "破産27.5万円〜<br>再生33万円〜<br><b>書類作成のみ</b>",
-  hibiki: "公式サイトに記載なし（問い合わせ）",
-  earth: "破産8.8万円〜<br>再生11万円〜<br><b>書類作成のみ</b>",
+  hatano: "破産<wbr>22万円〜<br>再生<wbr>38.5万円〜<br><b>書類作成<wbr>のみ</b>",
+  lotus: "破産<wbr>55万円<br>再生<wbr>77万円<br>諸費用5.5万円",
+  hibari: "破産<wbr>44万円〜<br>再生<wbr>55万円〜",
+  avance: "破産<wbr>27.5万円〜<br>再生<wbr>33万円〜<br><b>書類作成<wbr>のみ</b>",
+  hibiki: "公式サイトに記載なし<br>問い合わせ",
+  earth: "破産<wbr>8.8万円〜<br>再生<wbr>11万円〜<br><b>書類作成<wbr>のみ</b>",
 };
 const STRONG = {
   hatano: "手持ちがなくても督促停止。全国出張無料、毎日21時まで",
   lotus: "140万円超も破産・再生も弁護士に。依頼前に面談、何度でも無料",
   hibari: "LINE・匿名フォームで弁護士に文字で相談",
-  avance: "女性専用ダイヤル。平日21時まで",
-  hibiki: "24時間365日申込み。依頼後はアプリで進み具合を確認",
-  earth: "1社11,000円〜で減額報酬なし",
+  avance: "女性専用<wbr>ダイヤル。平日21時まで",
+  hibiki: "24時間365日<wbr>申込み。依頼後はアプリで進み具合を確認",
+  earth: "1社<wbr>11,000円〜で減額報酬なし",
 };
 const HOURS = { hatano: "毎日<wbr>9〜21時<br>Web<wbr>24時間", lotus: "土日祝も<wbr>10〜19時", hibari: "平日<wbr>10〜19時<br>土日は<wbr>予約制", avance: "平日<wbr>9:30〜21時<br>土日祝<wbr>10〜18時", hibiki: "申込みは<wbr>24時間<wbr>365日", earth: "平日<wbr>9:30〜18時<br>土曜・夜間は<wbr>予約" };
 const isLawyer = (f) => f.type.startsWith("弁護士");
 const tab1 = (f) => cmpRow(f, `<td><b class="site-total">${total(f)}</b><span class="yk-small">/30点</span></td><td class="is-left"><ul class="yk-chips"><li class="is-pink">${isLawyer(f) ? "弁護士" : "司法書士"}</li><li>${isLawyer(f) ? "借入額の上限なし" : "1社140万円まで"}</li></ul>${STRONG[f.key]}</td><td>${cta(f, "無料<br>相談", "yk-btn yk-btn--sm site-cmpbtn", "cmp")}</td>`);
 const tab2 = (f) => cmpRow(f, `<td class="is-left"><span class="yk-small">${FEE_NINI[f.key]}</span></td><td class="is-left"><span class="yk-small">${FEE_COURT[f.key]}</span></td><td>${cta(f, "無料<br>相談", "yk-btn yk-btn--sm site-cmpbtn", "cmp2")}</td>`);
-const tab3 = (f) => cmpRow(f, `<td>${maru(f.scores.hours)}<span class="yk-small">${HOURS[f.key]}</span></td><td>${maru(f.scores.method)}<span class="yk-small">${METHOD[f.key]}</span></td><td>${maru(f.scores.family)}<span class="yk-small">${f.scores.family === 5 ? "郵便物などの配慮を明記" : f.scores.family === 4 ? "プライバシー厳守" : "記載なし"}</span></td>`);
+const tab3 = (f) => cmpRow(f, `<td>${maru(f.scores.hours)}<span class="yk-small">${HOURS[f.key]}</span></td><td>${maru(f.scores.method)}<span class="yk-small">${METHOD[f.key]}</span></td><td>${maru(f.scores.family)}<span class="yk-small">${f.scores.family === 5 ? "郵便物の配慮を明記" : f.scores.family === 4 ? "プライバシー<wbr>厳守" : "記載なし"}</span></td>`);
 const cmpTable = (head, rowFn, id) => `<div class="yk-fold"><input type="checkbox" id="${id}"><div class="yk-fold__body">
       <table class="yk-cmp"><colgroup><col class="c1"><col class="c2"><col><col class="c4"></colgroup>
         <tr><th>事務所</th>${head.map((h) => `<th>${h}</th>`).join("")}</tr>
@@ -363,7 +414,7 @@ ${footer}
 </div>
 ${firms.map(pixel).join("")}
 ${RADAR_JS}
-${FINDER_JS}
+${wrapJsStrings(FINDER_JS)}
 ${MONTH_JS}
 </body>
 </html>
@@ -494,7 +545,7 @@ ${firms.map((f) => `<div class="yk-listbox"><p class="yk-listbox__ttl">${f.rank}
   ["法律事務所の破産（負債約51億円）と非弁提携の指摘", "https://www.bengo4.com/times/articles/160/"],
 ].map(([t, u]) => `<li><a href="${u}" rel="nofollow noopener" target="_blank">${t}</a></li>`).join("")}</ul></div>`);
 
-const operator = sub("operator", "運営者情報", `<table class="yk-info"><tr><th>運営者</th><td class="is-left">${SITE} 編集部</td></tr><tr><th>編集長</th><td class="is-left">法律事務所の事務員（勤務7年目）</td></tr><tr><th>お問い合わせ</th><td class="is-left"><a href="mailto:securewebtech6676@gmail.com">securewebtech6676@gmail.com</a></td></tr><tr><th>事業内容</th><td class="is-left">Webメディア運営<br>オンライン広告企画・運用代行</td></tr><tr><th>URL</th><td class="is-left">${ORIGIN}/</td></tr></table>
+const operator = sub("operator", "運営者情報", `<table class="yk-info site-optable"><tr><th>運営者</th><td class="is-left">${SITE} 編集部</td></tr><tr><th>編集長</th><td class="is-left">法律事務所の事務員（勤務7年目）</td></tr><tr><th>お問い合わせ</th><td class="is-left"><a href="mailto:securewebtech6676@gmail.com">securewebtech6676@gmail.com</a></td></tr><tr><th>事業内容</th><td class="is-left">Webメディア運営<br>オンライン広告企画・運用代行</td></tr><tr><th>URL</th><td class="is-left">${ORIGIN}/</td></tr></table>
 <div class="yk-listbox"><p class="yk-listbox__ttl">広告掲載について</p><ul><li>当サイトは提携企業様のサービスを紹介するにあたり、広告契約に基づき掲載を行っております。</li><li>本サイトは法律相談・法的助言ではなく、一般的な情報提供を目的としています。</li><li>掲載情報は各事務所の公式サイトの記載をもとに作成しています。最新かつ正確な内容は、必ず各事務所に直接ご確認ください。</li></ul></div>`);
 
 const privacy = sub("privacy", "プライバシーポリシー", `<p>当サイトでは、個人情報の取り扱いに対し、利用者からの信頼を最も重要視しております。個人情報保護法および関連法令・ガイドラインを遵守し、以下の方針に基づいて管理を行います。</p>
@@ -514,7 +565,7 @@ const privacy = sub("privacy", "プライバシーポリシー", `<p>当サイ�
 <h2 class="yk-numh"><span>6</span>法令遵守と見直し</h2>
 <p>当サイトは個人情報保護に関する日本の法令を遵守し、必要に応じて本ポリシーを見直し・改善いたします。</p>`);
 
-const write = (rel, s) => { const p = path.join(OUT, rel); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, s); };
+const write = (rel, s) => { const p = path.join(OUT, rel); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, rel.endsWith(".html") ? wrapPage(s) : s); };
 write("index.html", index);
 for (const f of firms.filter((x) => x.page)) write(`${f.key}/index.html`, detailPage(f));
 write("ranking/index.html", rankingPage);
