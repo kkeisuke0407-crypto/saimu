@@ -15,7 +15,7 @@ img { max-width: 100%; height: auto; }
 /* FV：支給画像を全幅で。帯の日付（自動更新）を画像の帯に重ね、PRを右上に置く */
 .yk-hero.site-fv { display: block; position: relative; padding: 0; background: none; container-type: inline-size; }
 .site-fv__img { display: block; width: 100%; height: auto; }
-.site-fv__date { position: absolute; left: 9.6%; top: 4.9%; width: 32.6%; height: 8.3%; margin: 0 !important; display: flex; align-items: center; justify-content: center; background: #033c8e; color: #fff; font-size: 3.6cqw; font-weight: 900; font-style: italic; line-height: 1 !important; letter-spacing: .01em; white-space: nowrap; }
+.site-fv__date { position: absolute; left: 1.2%; top: 1.6%; margin: 0 !important; padding: .1em .45em; border: 1px solid #777; background: rgba(255,255,255,.9); color: #444; font-size: 11px; line-height: 1.4 !important; white-space: nowrap; }
 .site-fv__pr { position: absolute; right: 1.2%; top: 1.6%; margin: 0 !important; }
 .site-fv__pr b { display: inline-block; padding: .1em .45em; border: 1px solid #777; background: rgba(255,255,255,.9); color: #444; font-size: 11px; font-weight: 400; line-height: 1.4; }
 .site-heronote { margin: .4em 0 0 !important; }
@@ -33,9 +33,9 @@ img { max-width: 100%; height: auto; }
 .yk-jobcard img.site-jobimg { display: block; width: calc(100% - 20px); height: 140px; margin: 10px; aspect-ratio: auto; object-fit: cover; border-radius: 4px; }
 .site-src { margin: .4em 10px !important; }
 
-/* 編集部・口コミのアイコン（ICOOON MONO） */
-.yk-editor__chara { object-fit: contain; padding: 6px; background: #fff; border: 2px solid var(--yk-blue); box-shadow: 0 1px 4px rgba(0,0,0,.15); }
-.yk-voice__face { display: block; object-fit: contain; padding: 8px; background: #fff; border: 1px solid var(--yk-rule); }
+/* 編集長・口コミのアイコン（切手LPと同じ素材） */
+.yk-editor__chara { object-fit: cover; object-position: top; background: #fff; border: 2px solid var(--yk-blue); box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+.yk-voice__face { display: block; object-fit: cover; object-position: top; background: #fff; border: 1px solid var(--yk-rule); }
 .site-px { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .site-total { font-size: 22px; color: var(--yk-red); }
 .yk-pickup__img.site-pickimg { display: block; width: calc(100% - 16px); height: auto; aspect-ratio: 8 / 5; object-fit: cover; object-position: top; border: 1px solid var(--yk-rule); }
@@ -68,8 +68,29 @@ img { max-width: 100%; height: auto; }
 
 /* 中央寄せの文と強調の帯（本文の要点） */
 .site-center { text-align: center; }
-.site-point { margin: 1em 0 !important; padding: .8em .6em; border-top: 2px solid var(--yk-blue-bg); border-bottom: 2px solid var(--yk-blue-bg); font-size: 16px; font-weight: 700; line-height: 1.75 !important; }
-.site-point a { color: var(--yk-blue); }
 .yk-best3__text { text-align: center; }
 .site-center { text-wrap: balance; }
-.site-point { word-break: keep-all; overflow-wrap: anywhere; }
+/* 比較表：強みのチップと本文の間 */
+.yk-cmp td.is-left .yk-chips { margin-bottom: .3em; }
+/* 語の途中で切らない見出し（<wbr> の位置で折り返す） */
+.site-keep.yk-numh, .site-keep .yk-numh, .site-keep a { word-break: keep-all; overflow-wrap: anywhere; }
+/* 比較表の費用タブ：金額が途中で切れないよう行を守る */
+.yk-cmp td.is-left .yk-small { word-break: keep-all; overflow-wrap: anywhere; }
+/* 比較表の費用タブは任意整理の列を広く（金額を1行に収める） */
+.yk-tabs__panels > div:nth-child(2) .yk-cmp col.c1 { width: 25%; }
+.yk-tabs__panels > div:nth-child(2) .yk-cmp col.c2 { width: 33%; }
+.yk-tabs__panels > div:nth-child(2) .yk-cmp col.c4 { width: 16%; }
+.yk-cmp td .yk-small { word-break: keep-all; overflow-wrap: anywhere; }
+/* 本文のテキストリンク */
+.site-tl { color: var(--yk-blue); font-weight: 700; text-decoration: underline; }
+.yk-info td small { display: block; }
+/* 向いている人の見出しのテキストリンク（青地なので白） */
+.mt-fit__ttl .site-tl { color: #fff; }
+/* 編集長：肩書きを別の行に、段落の間をあける */
+.mt-author__name small { display: block; margin-left: 0; }
+.mt-author__txt { margin-bottom: .6em !important; }
+.mt-author__txt:last-child { margin-bottom: 0 !important; }
+/* 2つのパーツ集でマーカーの色をそろえる */
+:root { --mt-mark: var(--yk-mark); }
+/* 知識2：長い文は自然に折り返す */
+.yk-body .yk-features.site-normal li { word-break: normal; }

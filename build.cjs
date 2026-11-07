@@ -9,10 +9,11 @@ const OUT = __dirname;
 
 const SITE = "借金スッキリnavi";
 const ORIGIN = "https://saimu.navolio.net";
-const TITLE = "債務整理の相談先おすすめ6選｜無料相談・費用・受付時間を比較【2026年11月】";
-const DESC = "債務整理の相談先6社を、相談料・任意整理の費用・対応手続き・受付時間・分割払い・家族への配慮の6項目で比較。各事務所の公式サイトの記載をもとに採点しました。";
+const TITLE = "債務整理の相談先おすすめ6選｜法律事務所7年目の編集長が選び方を解説【2026年11月】";
+const DESC = "司法書士か弁護士か、どこに相談すればいいのか。法律事務所で7年働く編集長が、1社140万円を分かれ目にした選び方と、気をつけてほしい事務所を解説。6社を公式サイトの記載で比較しました。";
 const UPDATED = "2026年11月";
-const UPDATED_ISO = "2026-11-04";
+const UPDATED_ISO = "2026-11-07";
+const SHOT_DATE = "2026年11月4日";
 const GA4 = "G-2YLF06DC0E";
 const AW = "AW-18129603657";
 
@@ -43,7 +44,7 @@ const banner = (f) => `<a href="${href(f)}" ${rel(f)} data-cta="${f.key}-banner"
 const shot = (f) => `<figure class="yk-shot"><img class="yk-shot__img" src="/images/official/${f.key}.webp" alt="${f.name}の公式サイトの画面" width="960" height="${f.key === "hibiki" ? 540 : 600}" loading="lazy"><figcaption>出典：${f.short}公式サイト</figcaption></figure>`;
 const PHOTO = { kakei: [900, 1200, "書類の上に置かれた電卓"], house: [900, 600, "木の家の模型"], gavel: [900, 600, "木製のガベル"], coins: [900, 600, "瓶からこぼれた硬貨"], calc: [900, 600, "電卓とノートとペン"], phone: [900, 600, "スマートフォンを操作する手元"] };
 const photo = (name, cls = "") => `<img${cls ? ` class="${cls}"` : ""} src="/images/photo/${name}.webp" alt="${PHOTO[name][2]}" width="${PHOTO[name][0]}" height="${PHOTO[name][1]}" loading="lazy">`;
-const icon = (name, cls, alt = "") => `<img class="${cls}" src="/images/icon/${name}.svg" alt="${alt}" width="96" height="96" loading="lazy">`;
+const icon = (name, cls, alt = "") => `<img class="${cls}" src="/images/icon/${name}.webp" alt="${alt}" width="96" height="96" loading="lazy">`;
 const pixel = (f) => (f.asp ? `<img class="site-px" src="https://h.accesstrade.net/sp/rr?rk=${f.asp}" width="1" height="1" alt="">` : "");
 const CATCH = "相談料0円";
 const medal = (r) => `<span class="yk-medal${r <= 3 ? (r > 1 ? ` yk-medal--${r}` : "") : " yk-medal--n"}">${r}</span>`;
@@ -82,6 +83,7 @@ ${noindex ? '<meta name="robots" content="noindex">\n' : ""}<meta property="og:t
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/parts.css">
+<link rel="stylesheet" href="/parts-mt.css">
 <link rel="stylesheet" href="/site.css">
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 ${gtagHead}
@@ -93,15 +95,15 @@ const LEGAL = [
   `※相談料・費用・受付時間・対応エリアなどは各事務所の公式サイトの記載（${CHECKED}確認）です。変更される場合があるため、必ず各事務所にご確認ください。`,
   "※債務整理を行うと信用情報に一定期間登録されるなどの影響があります。手続きの効果やリスクは個別の状況により異なります。",
 ];
-const footer = `<div class="site-legal" id="public">${LEGAL.map((l) => `<p class="yk-small">${l}</p>`).join("")}<p class="yk-small">写真：Unsplash／アイコン：ICOOON MONO／ロゴ・公式画面：各事務所公式サイト（${CHECKED}撮影）</p></div>
+const footer = `<div class="site-legal" id="public">${LEGAL.map((l) => `<p class="yk-small">${l}</p>`).join("")}<p class="yk-small">写真：Unsplash／ロゴ・公式画面：各事務所公式サイト（${SHOT_DATE}撮影）</p></div>
 <footer class="yk-footer"><ul><li><a href="/operator/">運営者情報</a></li><li><a href="/ranking/">ランキング調査概要</a></li><li><a href="/privacy/">プライバシーポリシー</a></li></ul><small>© 2026 ${SITE}</small></footer>`;
 
 /* ================= トップページ（ページの流れ） ================= */
-// A-1 FV（支給画像。帯の日付は日本時間の当月に自動更新、PRは画像の右上）
+// A-1 FV（支給画像。更新月は日本時間の当月に自動更新して左上に、PRは画像の右上）
 const fv = `<header class="yk-hero site-fv">
-  <h1 class="yk-sr">債務整理の相談先 徹底比較6選（相談料0円・土日も受付・6項目で採点）</h1>
-  <img class="site-fv__img" src="/images/fv.webp" alt="債務整理の相談先 徹底比較6選。相談料0円6社とも、土日も受付6社とも、比較6項目で採点" width="1672" height="941" fetchpriority="high">
-  <p class="site-fv__date" aria-hidden="true"><time data-month>${UPDATED}</time>最新版</p>
+  <h1 class="yk-sr">債務整理の相談先、どこも同じだと思っていませんか？法律事務所の現場を知るスタッフが解説。依頼前に確認したい、相談先選びのポイント</h1>
+  <img class="site-fv__img" src="/images/fv.webp" alt="債務整理の相談先、どこも同じだと思っていませんか？法律事務所の現場を知るスタッフが解説。依頼前に確認したい、相談先選びのポイント" width="1672" height="941" fetchpriority="high">
+  <p class="site-fv__date"><time data-month>${UPDATED}</time>更新</p>
   <p class="site-fv__pr"><b>PR</b></p>
 </header>
 `;
@@ -122,61 +124,108 @@ ${firms.slice(0, 3).map((f) => `  <li class="yk-best3__item"><span class="yk-bes
 </ol></section>`;
 
 // B-2 求人の例カード → 公式サイトに掲載された解決事例
-const caseCards = firms.flatMap((f) => f.cases.map((c) => ({ f, c }))).slice(0, 5);
+const caseCards = firms.slice(0, 3).flatMap((f) => f.cases.map((c) => ({ f, c })));
 const top2 = `<h2 class="yk-sec-ttl" id="types">各社の<em>解決事例</em></h2>
 <p class="yk-hint">横にスクロールできます</p>
 <div class="yk-hscroll">
 ${caseCards.map(({ f, c }) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__ttl">${c.ttl}</h3>${photo(c.img, "yk-jobcard__img site-jobimg")}<p class="yk-jobcard__pay"><b>${c.after.split("・")[0].split("＋")[0]}</b></p><table class="yk-kv"><tr><th>手続き</th><td>${c.proc}</td></tr><tr><th>相談前</th><td>${c.before}</td></tr><tr><th>結果</th><td><span class="yk-red">${c.after}</span></td></tr><tr><th>事務所</th><td>${f.short}</td></tr></table><ul class="yk-tags"><li>${f.type.split("（")[0]}</li><li>公式掲載</li></ul><p class="yk-small site-src">※結果は事案により異なります</p><p class="yk-catch">${f.mc}</p>${cta(f, "無料相談", "yk-btn yk-btn--sm", "case")}</div>`).join("\n")}
 </div>`;
 
-// 債務整理の基礎知識（事例と比較表の間。パーツ：detail-4 目次／detail-5 番号見出し／rank-8 表／detail-6 チェックの箱／image-2 本文画像／detail-7 ボタン）
-const GENRE_ITEMS = ["借金は「今すぐ」相談したほうがいい理由", "債務整理は4種類。自分に合う方法", "1社140万円が分かれ目。弁護士と司法書士の違い", "失敗しない相談先の選び方5つ", "知っておきたいデメリット"];
+// 編集長の紹介（体験談パーツ frame-5 mt-author。切手と同じ）。経歴はユーザー本人の説明の範囲だけで書く
+const editorProfile = `<div class="mt-author" id="editor"><span class="mt-author__icon"><img src="/images/icon/editor.webp" alt="" width="64" height="64" loading="lazy"></span><div>
+  <p class="mt-author__name">法律事務所の事務員｜勤務7年目<small>このサイトの編集長</small></p>
+  <p class="mt-author__txt">法律事務所で働いて7年目、今も現場にいます。中にいるから、はっきり言えることがあります。</p>
+  <p class="mt-author__txt"><span class="yk-mark">弁護士も、結局はビジネスです。</span>営利目的で動く事務所は少なくありません。</p>
+  <p class="mt-author__txt">「もっといい方法があったのに」「もっといい事務所があったのに」。知らないまま損をしている人を、私は見てきました。</p>
+  <p class="mt-author__txt"><b>そういう人をなくしたくて、このサイトを書いています。</b>業界の中にいる人間として、相談先選びで損をしないためのポイントをお伝えします。</p>
+  <p class="mt-author__txt">勤務先の事務所は、このサイトに掲載していません。</p>
+</div></div>`;
+
+// 債務整理の基礎知識（事例と比較表の間）
+// パーツ：text-1 悩み mt-worry／compare-2 結論 mt-conclusion／detail-4・5 目次と番号見出し／compare-6 用語の補足 mt-info／text-4 ひとこと mt-oneline／
+// rank-3 特徴 yk-features／detail-6 チェックの箱 yk-listbox／compare-7 向いている人 mt-fit／text-11 注意 mt-caution／text-9 つぶやき mt-say／rank-4 特徴 mt-points
+const GENRE_ITEMS = ["債務整理ってなに？誰に合うの？", "債務整理をすると、<wbr>今とどう変わる？", "司法書士か弁護士か", "法律事務所の<wbr>中の人が教える<wbr>選び方"];
+const tl = (k, label, place) => cta(F[k], label, "site-tl", place);
+const term = (name, what, who) => `<div class="mt-info"><p class="mt-info__ttl">${name}とは？</p><p><span class="yk-mark">${what}</span>手続き。<br><b>合う人：</b>${who}</p></div>`;
 const genre = `<h2 class="yk-sec-ttl" id="knowledge">相談先を選ぶ前に<br>知っておきたい<em>債務整理</em>のこと</h2>
-<p class="site-center">債務整理は、<b class="yk-red">借金の利息や元本を減らす</b>、<b class="yk-red">返済を免除してもらう</b>ための法律の手続き。</p>
-<p class="site-center site-point"><span class="yk-mark">どの事務所に頼むかで</span><br><span class="yk-mark">使える手続きも費用も変わります</span></p>
-<p class="site-center">比較表を見る前に、ここだけ押さえておきましょう。</p>
-<div class="yk-order"><p class="yk-order__ttl">債務整理の基礎知識</p><ol>${GENRE_ITEMS.map((t, i) => `<li><span>知識${i + 1}</span><a href="#k${i + 1}">${t}</a></li>`).join("")}</ol></div>
+<p class="mt-worry site-center">「司法書士と弁護士がまざっていて、<br>どこに頼めばいいか分からない…」</p>
+<div class="mt-conclusion"><p class="mt-conclusion__ttl">【結論】決め方はかんたん</p>
+<p>どの会社も<b class="yk-red">140万円以下</b>なら → ${tl("hatano", "1位 はたの", "lead")}</p>
+<p>それ以外は → ${tl("lotus", "2位 東京ロータス", "lead")}</p></div>
+<div class="yk-order site-keep"><p class="yk-order__ttl">債務整理の基礎知識</p><ol>${GENRE_ITEMS.map((t, i) => `<li><span>知識${i + 1}</span><a href="#k${i + 1}">${t}</a></li>`).join("")}</ol></div>
 
-<h3 class="yk-numh" id="k1"><span>知識1</span>${GENRE_ITEMS[0]}</h3>
-<p class="site-center"><b>借金の悩みは、待っていても軽くなりません。</b></p>
-<p>返済が遅れると<span class="yk-red">遅延損害金が上乗せされ、一括請求→裁判→給料の差し押さえ</span>へと進むこともあります。</p>
-<p class="site-center site-point">依頼して<b>受任通知</b>が届けば<br><span class="yk-mark">その日から督促がストップ</span></p>
-<div class="yk-listbox"><p class="yk-listbox__ttl">早く相談するほど得になること</p><ul><li>依頼したその日から、<b class="yk-red">督促と返済がいったん止まる</b></li><li>延滞が長引く前なら、<b class="yk-red">任意整理（利息カット）で返していける</b>可能性が高い</li><li>過払い金は、原則として<b class="yk-red">最後の取引から10年</b>で請求できなくなる</li><li>相談料は今回の6社すべて<b class="yk-red">0円</b>。相談だけで依頼しなくてもいい</li></ul></div>
+<h3 class="yk-numh site-keep" id="k1"><span>知識1</span>${GENRE_ITEMS[0]}</h3>
+<p class="site-center">法律を使って、<br><b class="yk-red">借金を減らす・なくす</b>手続きです。<br>種類は4つだけ。</p>
+${term("任意整理", "利息をなくして、元金だけ返す", "収入があって、利息さえ止まれば返せる人")}
+${term("個人再生", "借金を大きく減らして返す", "家や資産を手放さずに減らしたい人")}
+${term("自己破産", "返済を原則ゼロにしてもらう", "どうやっても返せない人")}
+${term("過払い金請求", "払いすぎた利息を取り戻す", "昔から借りていた人、完済した人")}
+<p class="mt-oneline site-center">どれが合うかは<br><span>無料相談で決めるものです</span></p>
 
-<h3 class="yk-numh" id="k2"><span>知識2</span>${GENRE_ITEMS[1]}</h3>
-<figure class="mt-img">${photo("gavel")}<figcaption class="mt-img__note">写真：Unsplash</figcaption></figure>
-<table class="yk-info"><tr><th>手続き</th><th>どうなる？</th></tr>
-<tr><td><b>任意整理</b><small>いちばん多い</small></td><td class="is-left">貸金業者と交渉して将来の利息をカットし、残りを3〜5年で分割返済。裁判所を通さず、家族に知られにくい</td></tr>
-<tr><td><b>個人再生</b><small>家を残したい</small></td><td class="is-left">裁判所を通して借金を大きく減らし、原則3〜5年で返済。住宅ローン特則で家を残せる可能性がある</td></tr>
-<tr><td><b>自己破産</b><small>返済が難しい</small></td><td class="is-left">裁判所に認められると返済義務が原則なくなる。一定以上の財産は処分され、一部の資格に制限がある</td></tr>
-<tr><td><b>過払い金請求</b><small>昔から借りている</small></td><td class="is-left">払いすぎた利息を取り戻す。返済中なら借金を減らせる場合も</td></tr></table>
-<p class="site-center site-point">カードローン・リボが苦しいなら<br>まずは<span class="yk-mark">任意整理（利息カット）</span></p>
-<p>どの手続きが合うかは、借入額・収入・持ち家の有無で決まります。<b>自分で決めずに、無料相談で決めてもらうのがいちばんの早道</b>です。</p>
+<h3 class="yk-numh site-keep" id="k2"><span>知識2</span>${GENRE_ITEMS[1]}</h3>
+<div class="yk-features site-normal"><p class="yk-features__ttl">債務整理でこう変わる</p><ul>
+<li><span><b>任意整理</b><br>払っても利息で減らない<br>→ <b class="yk-red">これからの利息がなくなる可能性</b>があります。元金だけを3〜5年で返すので、払った分だけ借金が減っていきます</span></li>
+<li><span><b>個人再生</b><br>借金が大きすぎて返せない<br>→ <b class="yk-red">借金そのものを大きく減らせる可能性</b>があります。減った分を原則3年で返します。家を残せる場合もあります</span></li>
+<li><span><b>自己破産</b><br>どうやっても返せない<br>→ 裁判所に認められれば、<b class="yk-red">返済が原則なくなります</b>。借金のない生活からやり直せます</span></li>
+<li><span><b>過払い金請求</b><br>昔から高い利息を払ってきた<br>→ <b class="yk-red">払いすぎた利息が戻ってくる可能性</b>があります。返済中なら、借金が減る、なくなることもあります</span></li>
+</ul></div>
+<p class="mt-oneline site-center">どの手続きでも、受任通知が届けば<br><span>督促が止まります</span></p>
+<div class="yk-listbox"><p class="yk-listbox__ttl">早く相談するほど得になること</p><ul><li>依頼すれば、<b class="yk-red">督促と返済がいったん止まる</b></li><li>延滞が長引く前なら、<b class="yk-red">任意整理で返していける</b>可能性が高い</li><li>過払い金は、原則として<b class="yk-red">最後の取引から10年</b>で請求できなくなる</li></ul></div>
 
-<h3 class="yk-numh" id="k3"><span>知識3</span>${GENRE_ITEMS[2]}</h3>
-<table class="yk-info"><tr><th>弁護士</th><th>認定司法書士</th></tr>
-<tr><td class="is-left">借入額の上限なし。任意整理・個人再生・自己破産・過払い金をすべて代理できる</td><td class="is-left">代理できるのは<b>1社140万円以下</b>。個人再生・自己破産は書類作成のみ</td></tr>
-<tr><td class="is-left">今回の6社では<b>東京ロータス・ひばり・響</b></td><td class="is-left">今回の6社では<b>はたの・アヴァンス・アース</b></td></tr></table>
-<p class="site-center site-point">どの会社も<b class="yk-red">140万円以下</b>なら<br><span class="yk-mark">司法書士で十分 → <a href="#firm-hatano">はたの</a></span></p>
-<p class="site-center site-point">1社でも<b class="yk-red">140万円超</b>・破産・再生なら<br><span class="yk-mark">弁護士 → <a href="#firm-lotus">東京ロータス</a>・<a href="#firm-hibari">ひばり</a></span></p>
+<h3 class="yk-numh site-keep" id="k3"><span>知識3</span>${GENRE_ITEMS[2]}</h3>
+<p class="site-center">あなたの状況で、頼む先は決まります。</p>
+<div class="mt-fit">
+<div class="mt-fit__col"><p class="mt-fit__ttl">${tl("hatano", "1位 はたの", "k3")}<br>司法書士でOKな人</p><ul><li>どの会社も<b class="yk-red">140万円以下</b></li><li>利息が止まれば返せる（任意整理）</li></ul></div>
+<div class="mt-fit__col"><p class="mt-fit__ttl">${tl("lotus", "2位 東京ロータス", "k3")}<br>弁護士に頼む人</p><ul><li><b class="yk-red">1社でも140万円超</b></li><li>家や資産を残しながら減らしたい（個人再生）</li><li>もう、にっちもさっちもいかない（自己破産）</li></ul></div>
+</div>
+<p class="site-center">電話がどうしても苦手なら、弁護士に文字で相談できる${tl("hibari", "3位 ひばり", "k3")}へ。</p>
+<div class="mt-info mt-info--tip"><p class="mt-info__ttl">140万円は合計？1社ごと？</p><p><span class="yk-mark">1社ごとに見ます。</span>合計300万円でも、1社ごとに140万円以下なら司法書士でOKです。140万円に近い会社があるなら、最初から弁護士に話すほうが確実です。</p></div>
 
-<h3 class="yk-numh" id="k4"><span>知識4</span>${GENRE_ITEMS[3]}</h3>
-<div class="yk-listbox"><p class="yk-listbox__ttl">相談先を選ぶときに確認すること</p><ul><li><b>借入額に合っているか</b>：1社140万円を超えるなら弁護士</li><li><b>費用は総額で比べる</b>：着手金だけでなく、報酬金・減額報酬・実費まで足して1社あたりいくらか</li><li><b>相談しやすいか</b>：夜や土日に電話できるか、LINE・Web・出張に対応しているか</li><li><b>家族や職場への配慮</b>：郵便物や連絡方法を相談できるか</li><li><b>実績を公開しているか</b>：相談・解決の件数を出しているか</li></ul></div>
-<p class="site-center">このサイトのランキングは、この5つを6項目（受付時間・相談方法・初期費用・対応手続き・家族への配慮・実績）に分けて採点しています。</p>
-
-<h3 class="yk-numh" id="k5"><span>知識5</span>${GENRE_ITEMS[4]}</h3>
-<div class="yk-listbox"><p class="yk-listbox__ttl">債務整理をすると起きること</p><ul><li>信用情報機関に一定期間（5〜7年程度）登録され、その間は新しいローンやクレジットカードが作りにくい</li><li>個人再生・自己破産では、官報に名前が載る</li><li>自己破産では一定以上の財産を手放し、手続き中は一部の資格の仕事に就けない</li><li>保証人がついている借金は、保証人に請求が行く</li></ul></div>
-<p class="site-center site-point">デメリットはあっても<br><span class="yk-mark">利息を払い続けるより</span><br><span class="yk-mark">早く整理したほうが確実に楽になる</span></p>
-<p class="site-center">どの手続きなら影響を小さくできるかも、無料相談で教えてもらえます。</p>
-<p class="yk-catch">迷ったらまずは1位のはたのへ</p>${cta(F.hatano, "無料相談", "yk-btn", "knowledge")}`;
+<h3 class="yk-numh site-keep" id="k4"><span>知識4</span>${GENRE_ITEMS[3]}</h3>
+<div class="mt-caution"><p class="mt-caution__ttl">「非弁業者」が入っている事務所に注意</p>
+<p>非弁業者とは、弁護士ではないのに、事務所の裏で集客や運営を仕切っている業者のこと。表に立っているのは先生でも、その裏に業者が潜んでいる場合があります。</p>
+<p>そういう事務所は、利益しか求めない悪徳なところが多いです。実際に、預かったお金が広告会社に流れたとされる法律事務所の破産（負債約51億円）も起きています。</p></div>
+<div class="mt-say"><span class="mt-say__icon"><img src="/images/icon/reader.webp" alt="" width="52" height="52" loading="lazy"></span><p class="mt-say__b">そんなの、どうやって見分ければいいの…？</p></div>
+<p class="mt-oneline site-center">見分けるのは、まず無理です。だから<br><span>私が紹介する事務所なら安心です</span></p>
+<div class="mt-points"><ul>
+<li>${tl("hatano", "はたの", "k4")}：<b class="yk-red">相談実績20万件以上</b>。東京司法書士会所属。代表・在籍司法書士の名前と料金表を公開</li>
+<li>${tl("lotus", "東京ロータス", "k4")}：<b class="yk-red">受任実績9,000件以上</b>。東京弁護士会所属。所属弁護士の紹介と料金表を公開</li>
+<li>${tl("hibari", "ひばり", "k4")}：<b class="yk-red">解決実績25,000件以上</b>。東京弁護士会所属。所属弁護士の紹介と料金表を公開</li>
+</ul></div>`;
 
 // C-1 タブ切替の比較表（もっと見る付き）
 const firmCell = (f) => `<span class="yk-cmp__rank">${f.rank}</span><span class="yk-cmp__logo">${logo(f, "")}</span><a class="yk-cmp__name" href="#firm-${f.key}">${f.short}</a><span class="yk-stars">${stars(total(f))}</span><span class="yk-grade">総合評価 <b>${grade(total(f))}</b></span>`;
 const cmpRow = (f, cells) => `<tr${f.rank === 1 ? ' class="is-pick"' : ""}><td>${firmCell(f)}</td>${cells}</tr>`;
-const METHOD = { hatano: "電話・Web・出張", lotus: "電話・メール", hibari: "電話・LINE・匿名フォーム", avance: "電話・女性専用・Web", hibiki: "電話・Web", earth: "電話・メール" };
-const tab1 = (f) => cmpRow(f, `<td><b class="site-total">${total(f)}</b><span class="yk-small">/30点</span></td><td class="is-left"><b class="yk-red">${f.point}</b><ul class="yk-chips"><li class="is-pink">${f.type.split("（")[0]}</li></ul></td><td>${cta(f, "無料<br>相談", "yk-btn yk-btn--sm site-cmpbtn", "cmp")}</td>`);
-const tab2 = (f) => cmpRow(f, `<td>${maru(f.scores.cost)}<span class="yk-small">${f.fees[0][1]}</span></td><td>${maru(f.scores.scope)}<span class="yk-small">${f.type.startsWith("弁護士") ? "4つの手続きを代理" : "1社140万円以下"}</span></td><td>${cta(f, "無料<br>相談", "yk-btn yk-btn--sm site-cmpbtn", "cmp2")}</td>`);
-const tab3 = (f) => cmpRow(f, `<td>${maru(f.scores.hours)}<span class="yk-small">${f.info.hours}</span></td><td>${maru(f.scores.method)}<span class="yk-small">${METHOD[f.key]}</span></td><td>${maru(f.scores.family)}<span class="yk-small">${f.scores.family === 5 ? "郵便物などの配慮を明記" : f.scores.family === 4 ? "プライバシー厳守" : "記載なし"}</span></td>`);
+const METHOD = { hatano: "電話・Web・全国出張（無料）", lotus: "電話・メール。依頼前に面談", hibari: "電話・LINE・匿名フォーム", avance: "電話・女性専用・Web", hibiki: "電話・Web。依頼後はアプリ", earth: "電話・メール。受任時に本人面談" };
+const FEE_NINI = {
+  hatano: "着手金0円<br>基本報酬<wbr>22,000円〜<br>減額報酬<wbr>11％<br>印紙・管理費等は別",
+  lotus: "着手金<wbr>5,500円〜<br>報酬金<wbr>0〜11,000円<br>実費<wbr>5,500円<br>債務額・件数で変動",
+  hibari: "着手金<wbr>22,000円<br>報酬金<wbr>22,000円<br>減額報酬<wbr>11％<br>実費<wbr>5,500円",
+  avance: "着手金<wbr>22,000円〜<br>減額報酬<wbr>11％<br>事務手数料は別",
+  hibiki: "公式サイトに記載なし（問い合わせ）",
+  earth: "基本報酬<wbr>11,000円〜<br>減額報酬なし<br>完済分0円<br>実費は別",
+};
+const FEE_COURT = {
+  hatano: "破産22万円〜<br>再生38.5万円〜<br><b>書類作成のみ</b>",
+  lotus: "破産55万円<br>再生77万円<br>諸費用5.5万円",
+  hibari: "破産44万円〜<br>再生55万円〜",
+  avance: "破産27.5万円〜<br>再生33万円〜<br><b>書類作成のみ</b>",
+  hibiki: "公式サイトに記載なし（問い合わせ）",
+  earth: "破産8.8万円〜<br>再生11万円〜<br><b>書類作成のみ</b>",
+};
+const STRONG = {
+  hatano: "手持ちがなくても督促停止。全国出張無料、毎日21時まで",
+  lotus: "140万円超も破産・再生も弁護士に。依頼前に面談、何度でも無料",
+  hibari: "LINE・匿名フォームで弁護士に文字で相談",
+  avance: "女性専用ダイヤル。平日21時まで",
+  hibiki: "24時間365日申込み。依頼後はアプリで進み具合を確認",
+  earth: "1社11,000円〜で減額報酬なし",
+};
+const HOURS = { hatano: "毎日<wbr>9〜21時<br>Web<wbr>24時間", lotus: "土日祝も<wbr>10〜19時", hibari: "平日<wbr>10〜19時<br>土日は<wbr>予約制", avance: "平日<wbr>9:30〜21時<br>土日祝<wbr>10〜18時", hibiki: "申込みは<wbr>24時間<wbr>365日", earth: "平日<wbr>9:30〜18時<br>土曜・夜間は<wbr>予約" };
+const isLawyer = (f) => f.type.startsWith("弁護士");
+const tab1 = (f) => cmpRow(f, `<td><b class="site-total">${total(f)}</b><span class="yk-small">/30点</span></td><td class="is-left"><ul class="yk-chips"><li class="is-pink">${isLawyer(f) ? "弁護士" : "司法書士"}</li><li>${isLawyer(f) ? "借入額の上限なし" : "1社140万円まで"}</li></ul>${STRONG[f.key]}</td><td>${cta(f, "無料<br>相談", "yk-btn yk-btn--sm site-cmpbtn", "cmp")}</td>`);
+const tab2 = (f) => cmpRow(f, `<td class="is-left"><span class="yk-small">${FEE_NINI[f.key]}</span></td><td class="is-left"><span class="yk-small">${FEE_COURT[f.key]}</span></td><td>${cta(f, "無料<br>相談", "yk-btn yk-btn--sm site-cmpbtn", "cmp2")}</td>`);
+const tab3 = (f) => cmpRow(f, `<td>${maru(f.scores.hours)}<span class="yk-small">${HOURS[f.key]}</span></td><td>${maru(f.scores.method)}<span class="yk-small">${METHOD[f.key]}</span></td><td>${maru(f.scores.family)}<span class="yk-small">${f.scores.family === 5 ? "郵便物などの配慮を明記" : f.scores.family === 4 ? "プライバシー厳守" : "記載なし"}</span></td>`);
 const cmpTable = (head, rowFn, id) => `<div class="yk-fold"><input type="checkbox" id="${id}"><div class="yk-fold__body">
       <table class="yk-cmp"><colgroup><col class="c1"><col class="c2"><col><col class="c4"></colgroup>
         <tr><th>事務所</th>${head.map((h) => `<th>${h}</th>`).join("")}</tr>
@@ -185,10 +234,10 @@ ${firms.map((f) => "        " + rowFn(f)).join("\n")}
 const compare = `<h2 class="yk-sec-ttl" id="compare"><em>6社</em>をまとめて比較</h2>
 <div class="yk-tabs">
   <input type="radio" name="cmp1" id="cmp1-1" checked><input type="radio" name="cmp1" id="cmp1-2"><input type="radio" name="cmp1" id="cmp1-3">
-  <div class="yk-tabs__labels"><label for="cmp1-1">総合</label><label for="cmp1-2">費用・範囲</label><label for="cmp1-3">相談しやすさ</label></div>
+  <div class="yk-tabs__labels"><label for="cmp1-1">総合</label><label for="cmp1-2">費用</label><label for="cmp1-3">相談しやすさ</label></div>
   <div class="yk-tabs__panels">
-    <div>${cmpTable(["合計点", "ここが強い", "窓口"], tab1, "cmp1-more")}</div>
-    <div>${cmpTable(["任意整理の費用", "対応手続き", "窓口"], tab2, "cmp2-more")}</div>
+    <div>${cmpTable(["合計点", "選ぶ理由", "窓口"], tab1, "cmp1-more")}</div>
+    <div>${cmpTable(["任意整理（1社）", "破産・再生", "窓口"], tab2, "cmp2-more")}</div>
     <div>${cmpTable(["受付時間", "相談方法", "家族への配慮"], tab3, "cmp3-more")}</div>
   </div>
 </div>`;
@@ -222,7 +271,7 @@ ${[["hatano", "どの会社も140万円以下なら、はたの", [["着手金0�
 
 // D ランキング
 const radar = (f) => `<div class="yk-radar" data-name="${f.short}" data-labels="${AXES.map((a) => a.label).join(",")}" data-scores="${AXES.map((a) => f.scores[a.key]).join(",")}"></div>
-<p class="yk-small yk-radar__note">※編集部の採点 ${total(f)}/30点</p>`;
+<p class="yk-small yk-radar__note">※編集長の採点 ${total(f)}/30点</p>`;
 const infoTable = (f) => `<table class="yk-info"><tr><th>相談料</th><th>対応エリア</th></tr><tr><td>無料</td><td>${f.info.area}</td></tr><tr><th>事務所の種類</th><th>受付時間</th></tr><tr><td>${f.type}</td><td class="is-left">${f.info.hours}</td></tr><tr><th colspan="2">対応手続き</th></tr><tr><td class="is-left" colspan="2">${f.info.procs}${f.info.place ? `<small>所在地：${f.info.place}</small>` : ""}</td></tr></table>`;
 const jobex = (f) => f.cases.length
   ? `<p class="yk-hint">横にスクロールできます</p><div class="yk-hscroll">${f.cases.map((c, i) => `<div class="yk-jobex"><p class="yk-jobex__ttl">解決事例${i + 1}</p><ul class="yk-tags yk-tags--green"><li>${c.proc.split("（")[0]}</li><li>公式掲載</li></ul><table class="yk-kv"><tr><th>相談前</th><td>${c.before}</td></tr><tr><th>結果</th><td>${c.after}</td></tr></table><p class="yk-catch">${f.mc}</p>${cta(f, "無料相談", "yk-btn yk-btn--sm", "case")}<span class="yk-jobex__logo">${logo(f, "")}</span></div>`).join("")}</div>`
@@ -241,7 +290,7 @@ const rankBlock = (f) => `<div class="yk-rankarea" id="firm-${f.key}"><h3 class=
     <div>${jobex(f)}</div>
   </div>
 </div>
-<div class="yk-editor"><p class="yk-editor__ttl">編集部の<em>イチオシ</em>ポイント</p>${icon("editor", "yk-editor__chara", "編集部")}<div class="yk-editor__body"><p>${f.editor}</p>${f.choose ? `<p><b>こんな人に：</b>${f.choose.join("／")}</p><p>${f.other.map(([c, k]) => `${c}なら<a href="#firm-${k}"><b>${F[k].short}</b></a>へ。`).join("")}</p>` : ""}</div></div>
+<div class="yk-editor"><p class="yk-editor__ttl">編集長の<em>イチオシ</em>ポイント</p>${icon("editor", "yk-editor__chara", "編集長")}<div class="yk-editor__body"><p>${f.editor}</p>${f.choose ? `<p><b>こんな人に：</b>${f.choose.join("／")}</p><p>${f.other.map(([c, k]) => `${c}なら<a href="#firm-${k}"><b>${F[k].short}</b></a>へ。`).join("")}</p>` : ""}</div></div>
 ${voice(f)}
 <div class="yk-btnpair">${f.page ? `<a class="yk-btn yk-btn--sub" href="/${f.key}/">詳細は<br>こちら</a>` : `<a class="yk-btn yk-btn--sub" href="#compare">比較表<br>に戻る</a>`}<div><p class="yk-catch">${f.mc}</p>${cta(f, "無料相談", "yk-btn", "pair")}</div></div>
 </div>`;
@@ -258,8 +307,8 @@ const pickup = `<section class="yk-pickup" id="faq"><h2 class="yk-pickup__ttl"><
 ${["hatano", "lotus"].map((k) => `  <li class="yk-pickup__item"><p class="yk-pickup__name">${F[k].short}</p><img class="yk-pickup__img site-pickimg" src="/images/official/${k}.webp" alt="${F[k].name}の公式サイトの画面" width="960" height="600" loading="lazy"><p class="yk-pickup__text">${k === "hatano" ? "<b>140万円以下の任意整理</b>ならここ。着手金0円・毎日21時まで電話OK。" : "<b>140万円超・自己破産・個人再生</b>ならここ。弁護士で着手金5,500円〜。"}</p><p class="yk-catch">${F[k].mc}</p>${cta(F[k], "無料相談", "yk-btn yk-btn--sm", "pickup")}</li>`).join("\n")}
 </ul></section>`;
 
-// E-2 診断（ブラウザー内で判定）
-const finder = `<form class="yk-finder" id="situations" action="#ranking"><p class="yk-finder__ttl">債務整理<br><em>相談先</em>診断</p>
+// E-2 相談先チェック（パーツ close-2。ブラウザー内で判定）
+const finder = `<form class="yk-finder" id="situations" action="#ranking"><p class="yk-finder__ttl">債務整理<br><em>相談先</em>チェック</p>
   <label class="yk-finder__row">今の状況<select name="s"><option value="nini">毎月の返済を減らしたい</option><option value="kabarai">払いすぎた利息が気になる</option><option value="saisei">家を残して借金を減らしたい</option><option value="hasan">返済を続けるのが難しい</option></select></label>
   <label class="yk-finder__row">借入の額<select name="a"><option value="small">どの会社も140万円以下</option><option value="big">140万円を超える会社がある</option><option value="unknown">分からない</option></select></label>
   <fieldset><legend>当てはまるもの</legend><div class="yk-finder__checks"><label><input type="checkbox" name="text">電話より文字（LINE）で相談したい</label><label><input type="checkbox" name="cost">費用を抑えたい</label><label><input type="checkbox" name="weekend">夜・土日に相談したい</label><label><input type="checkbox" name="family">家族に知られたくない</label></div></fieldset>
@@ -301,11 +350,12 @@ const index = `${head({ title: TITLE, desc: DESC, url: `${ORIGIN}/`, ld: LD })}
 ${fv}
 ${logos}
 ${best3}
+${editorProfile}
 ${top2}
 ${genre}
+${combo}
 ${compare}
 ${matrix}
-${combo}
 ${ranking}
 ${pickup}
 ${finder}
@@ -426,9 +476,9 @@ ${footer}
 </html>
 `;
 
-const rankingPage = sub("ranking", "ランキング調査概要", `<div class="yk-order"><p class="yk-order__ttl">この調査について</p><ol><li><span>対象</span><a href="#target">比較した6社</a></li><li><span>順位</span><a href="#order">掲載順の決め方</a></li><li><span>採点</span><a href="#axes">6項目の採点基準</a></li><li><span>根拠</span><a href="#basis">各社の採点と根拠</a></li></ol></div>
+const rankingPage = sub("ranking", "ランキング調査概要", `<div class="yk-order"><p class="yk-order__ttl">この調査について</p><ol><li><span>対象</span><a href="#target">比較した6社</a></li><li><span>順位</span><a href="#order">掲載順の決め方</a></li><li><span>採点</span><a href="#axes">6項目の採点基準</a></li><li><span>根拠</span><a href="#basis">各社の採点と根拠</a></li><li><span>参考</span><a href="#sources">業界の話の出典</a></li></ol></div>
 <h2 class="yk-numh" id="target"><span>対象</span>比較した6社</h2>
-<p>債務整理（任意整理・個人再生・自己破産・過払い金請求）の無料相談を受け付けている弁護士法人・司法書士事務所6社。各社の公式サイトを${CHECKED}に確認し、ロゴ・画面は同日に撮影しました。</p>
+<p>債務整理（任意整理・個人再生・自己破産・過払い金請求）の無料相談を受け付けている弁護士法人・司法書士事務所6社。各社の公式サイトを${CHECKED}に確認しました（ロゴ・画面は${SHOT_DATE}撮影）。</p>
 <h2 class="yk-numh" id="order"><span>順位</span>掲載順の決め方</h2>
 <p>掲載順は、下の<b>6項目の合計点の順</b>です（6社とも点数が異なり、同点はありません）。当サイトは${firms.filter((f) => f.asp).length}社（${firms.filter((f) => f.asp).map((f) => f.short).join("・")}）と提携していますが、提携の有無で点数は変えていません。掲載順は品質や優劣を保証するものではありません。</p>
 <h2 class="yk-numh" id="axes"><span>採点</span>6項目の採点基準</h2>
@@ -436,9 +486,15 @@ const rankingPage = sub("ranking", "ランキング調査概要", `<div class="y
 <table class="yk-info">${AXES.map((a) => `<tr><th>${a.label}</th><td class="is-left">${a.rule}</td></tr>`).join("")}</table>
 <h2 class="yk-numh" id="basis"><span>根拠</span>各社の採点と根拠</h2>
 ${firms.map((f) => `<div class="yk-listbox"><p class="yk-listbox__ttl">${f.rank}位 ${f.name}（${total(f)}/30点・総合評価${grade(total(f))}）</p><ul>${AXES.map((a) => `<li>${a.label}：${MARU_CHAR[f.scores[a.key]]} ${f.basis[a.key][0]}（${srcLabel(f.basis[a.key][1])}）</li>`).join("")}</ul></div>`).join("\n")}
-<p class="yk-small">ASP提供バナー：アクセストレードで提携先が提供している広告素材の表記です。</p>`);
+<p class="yk-small">ASP提供バナー：アクセストレードで提携先が提供している広告素材の表記です。</p>
+<h2 class="yk-numh" id="sources"><span>参考</span>業界の話の出典</h2>
+<div class="yk-listbox"><ul>${[
+  ["司法書士の代理権は1社ごとに判断（最高裁 平成28年6月27日）", "https://www.mc-law.jp/mc_soudan/29964/"],
+  ["法律事務所の破産と広告会社への預かり金の流出（共同通信、2026年1月5日）", "https://www.oanda.jp/lab-education/market_news/kn_2026010501001192/"],
+  ["法律事務所の破産（負債約51億円）と非弁提携の指摘", "https://www.bengo4.com/times/articles/160/"],
+].map(([t, u]) => `<li><a href="${u}" rel="nofollow noopener" target="_blank">${t}</a></li>`).join("")}</ul></div>`);
 
-const operator = sub("operator", "運営者情報", `<table class="yk-info"><tr><th>運営者</th><td class="is-left">${SITE} 編集部</td></tr><tr><th>お問い合わせ</th><td class="is-left"><a href="mailto:securewebtech6676@gmail.com">securewebtech6676@gmail.com</a></td></tr><tr><th>事業内容</th><td class="is-left">Webメディア運営<br>オンライン広告企画・運用代行</td></tr><tr><th>URL</th><td class="is-left">${ORIGIN}/</td></tr></table>
+const operator = sub("operator", "運営者情報", `<table class="yk-info"><tr><th>運営者</th><td class="is-left">${SITE} 編集部</td></tr><tr><th>編集長</th><td class="is-left">法律事務所の事務員（勤務7年目）</td></tr><tr><th>お問い合わせ</th><td class="is-left"><a href="mailto:securewebtech6676@gmail.com">securewebtech6676@gmail.com</a></td></tr><tr><th>事業内容</th><td class="is-left">Webメディア運営<br>オンライン広告企画・運用代行</td></tr><tr><th>URL</th><td class="is-left">${ORIGIN}/</td></tr></table>
 <div class="yk-listbox"><p class="yk-listbox__ttl">広告掲載について</p><ul><li>当サイトは提携企業様のサービスを紹介するにあたり、広告契約に基づき掲載を行っております。</li><li>本サイトは法律相談・法的助言ではなく、一般的な情報提供を目的としています。</li><li>掲載情報は各事務所の公式サイトの記載をもとに作成しています。最新かつ正確な内容は、必ず各事務所に直接ご確認ください。</li></ul></div>`);
 
 const privacy = sub("privacy", "プライバシーポリシー", `<p>当サイトでは、個人情報の取り扱いに対し、利用者からの信頼を最も重要視しております。個人情報保護法および関連法令・ガイドラインを遵守し、以下の方針に基づいて管理を行います。</p>
